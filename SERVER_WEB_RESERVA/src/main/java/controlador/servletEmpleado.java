@@ -29,9 +29,7 @@ public class servletEmpleado extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
-	     int idJefe = Integer.parseInt(request.getParameter("jefe")) ;
+	
 	     int idAsignacion =Integer.parseInt(request.getParameter("rol")) ;
 		 String nombre = request.getParameter("nombre");
 		 String apellido = request.getParameter("apellido");
@@ -43,18 +41,18 @@ public class servletEmpleado extends HttpServlet {
 	  // 2. Procesar datos: Registrar
 			// 2.1. Crear conexion a la BD
 			Connection cnx=DataBase.getConnexion();
-			String sql = "insert into Empleado(ID_Jefe,ID_Asignación,Nombre,Apellido,Fecha_Contratación,Teléfono,Correo_Electrónico)"+
-					"values(?,?,?,?,?,?,?)";
+			String sql = "insert into Empleado(ID_Asignación,Nombre,Apellido,Fecha_Contratación,Teléfono,Correo_Electrónico)"+
+					"values(?,?,?,?,?,?)";
 			try {
 				PreparedStatement ps = cnx.prepareStatement(sql);
 				// 2.2. Completar la sentencia INSERT
-				ps.setInt(1, idJefe);
-				ps.setInt(2, idAsignacion);
-				ps.setString(3, nombre);
-				ps.setString(4, apellido);
-				ps.setString(5, fechaContratación);
-				ps.setString(6, telefono);
-				ps.setString(7, correoElectrónico);
+			
+				ps.setInt(1, idAsignacion);
+				ps.setString(2, nombre);
+				ps.setString(3, apellido);
+				ps.setString(4, fechaContratación);
+				ps.setString(5, telefono);
+				ps.setString(6, correoElectrónico);
 				
 				
 				// 2.3. Ejecutar INSERT

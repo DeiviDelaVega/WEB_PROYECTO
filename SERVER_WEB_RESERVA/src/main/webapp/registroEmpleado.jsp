@@ -14,14 +14,11 @@
 
 
 
-           	<label for="jefe">Jefe:</label><br>
-  		<input type="text" id="jefe" name="jefe"><br><br>
   		
          <label for="rol">Rol:</label>
          <select id="rol" name="rol">
-         <option value="1">Jefe</option>
-         <option value="2">Creador de Reservas</option>
-         <option value="3">Registro de Check-In y Check-Out</option>
+         <option value="1">Creador de Reservas</option>
+         <option value="2">Registro de Check-In y Check-Out</option>
         </select><br><br>
   		
         
