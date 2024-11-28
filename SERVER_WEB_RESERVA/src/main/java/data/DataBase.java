@@ -17,18 +17,20 @@ public class DataBase {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			
 			
-			String conexion = "jdbc:mysql//localhost:3306/DB_Reserva_Alojamiento_Temporal";
+			String conexion = "jdbc:mysql://localhost:3306/DB_Reserva_AlojamientoTemporal";
 			String usuario = "root";
-			String contrasena = "alomomola890.";
+			String contrasena = "Madeley29.";
 			
 			con = DriverManager.getConnection(conexion, usuario, contrasena);
 			
 			
 			
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+			System.out.println("Error: No se encontró el driver JDBC.");
 			e.printStackTrace();
 		} catch (SQLException e) {
+            System.out.println("Error al conectar con la base de datos.");
+
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
