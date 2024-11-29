@@ -42,5 +42,10 @@
 
   		<input type="submit" value="Ingresar">
 	</form>
+		<%String mensaje = request.getParameter("mensaje");
+		if(mensaje!=null) {
+	%>
+	<p><%= mensaje%></p>
+	<% } %>
 </body>
 </html>

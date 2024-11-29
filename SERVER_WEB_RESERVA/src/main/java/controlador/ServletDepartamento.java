@@ -36,23 +36,24 @@ public class ServletDepartamento extends HttpServlet {
 	    String descripcion = request.getParameter("descripcion");
 	    String serviciosIncluidos = request.getParameter("serviciosIncluidos");
 	    String disponibilidad = request.getParameter("disponibilidad");
-	    String precioPorNoche = request.getParameter("precioPorNoche");
-	    // Obtener el archivo de imagen cargado en el formulario
+	    double precioPorNoche = Double.parseDouble(request.getParameter("precioPorNoche"));
+	    
+	//    Obtener el archivo de imagen cargado en el formulario
 	//    Part imagenPart = request.getPart("imagenHabitacion"); // "imagenHabitacion" es el name del input de tipo file
 
-	    // Convertir el archivo de imagen a un arreglo de bytes
+	//     Convertir el archivo de imagen a un arreglo de bytes
 	   // byte[] imagenBytes = null;
-	    //if (imagenPart != null) {
-	        // Leer el archivo como un arreglo de bytes
-	      //  imagenBytes = new byte[(int) imagenPart.getSize()];
-	       // imagenPart.getInputStream().read(imagenBytes);
+	  //  if (imagenPart != null) {
+	   //      Leer el archivo como un arreglo de bytes
+	       // imagenBytes = new byte[(int) imagenPart.getSize()];
+	     //   imagenPart.getInputStream().read(imagenBytes);
 	    
 		
 	    // 2. Procesar datos: Registrar
 			// 2.1. Crear conexion a la BD
 		Connection cnx = DataBase.getConnexion();
 		String sql ="INSERT INTO Departamento(Nombre,Capacidad,Número_Habitaciones,Descripción,Servicios_Incluidos,Disponibilidad,Precio_Por_Noche)"+
-					"VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+					"VALUES ( ?, ?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement ps = cnx.prepareStatement(sql);
 				// 2.2. Completar la sentencia INSERT
@@ -62,25 +63,22 @@ public class ServletDepartamento extends HttpServlet {
 			ps.setString(4, descripcion);
 			ps.setString(5, serviciosIncluidos);
 			ps.setString(6, disponibilidad);
-			ps.setDouble(7, Double.parseDouble(precioPorNoche));
+			ps.setDouble(7,(precioPorNoche));
 			
 			// Aquí es donde hemos cambiado a setBytes para almacenar los datos binarios de la imagen
-	        //if (imagenBytes != null) {
-	        // ps.setBytes(8, imagenBytes); // Establecer la imagen como un arreglo de bytes
-	        //}
+	  //      if (imagenBytes != null) {
+	     //    ps.setBytes(8, imagenBytes); // Establecer la imagen como un arreglo de bytes
+	       // }
 					
 			// 2.3. Ejecutar INSERT
 			int resultado = ps.executeUpdate(); // 1 si se registro, de lo contrario es 0
-			
-			if (resultado > 0) {
-	            response.getWriter().append("Departamento registrado correctamente.");
-	        } else {
-	            response.getWriter().append("Error al registrar el departamento.");
-	        }
+			String mensaje = (resultado==1)? "Registro satisfactorio":"Error en el registro";
+			// 3. Respuesta del Servlet
+			response.sendRedirect("RegistrarDepartamento.jsp?mensaje=" + mensaje);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-}
+	}
