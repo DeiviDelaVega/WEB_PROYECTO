@@ -8,7 +8,10 @@
 </head>
 <body>
 <h2>Registro de Departamentos</h2>
-	<form action="departamento" method="post" enctype="multipart/form-data">
+
+
+
+	<form action="departamento" method="post">
 		<label for="nombre">Nombre:</label><br>
   		<input type="text" id="nombre" name="nombre"><br><br>
   		
@@ -36,8 +39,6 @@
   		<label for="precioPorNoche">Precio por Noche:</label><br>
   		<input type="text" id="precioPorNoche" name="precioPorNoche"><br><br>
   		
-  		<label for="imagenHabitacion">Imagen de la Habitacion:</label><br>
-  		<input type="file" id="imagenHabitacion" name="imagenHabitacion"><br><br>
 
   		<input type="submit" value="Ingresar">
 	</form>
