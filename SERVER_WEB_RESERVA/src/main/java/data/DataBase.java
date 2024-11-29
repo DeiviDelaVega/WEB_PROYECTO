@@ -26,7 +26,7 @@ public class DataBase {
 			e.printStackTrace();
 		} catch (SQLException e) {
             System.out.println("Error al conectar con la base de datos.");
-
+            //HOLA
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
