@@ -1,9 +1,14 @@
+
 package modelo;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import data.DataBase;
 
-import java.io.Serializable;
-
-public class Departamento implements Serializable{
-	private static final long serialVersionUID = 1L;
+public class Departamento{
 	private int idDepartamento;
     private String nombre;
     private int capacidad;
@@ -12,10 +17,20 @@ public class Departamento implements Serializable{
     private String serviciosIncluidos;
     private String disponibilidad;
     private double precioPorNoche;
-    private byte[] imagenHabitacion; // Usar byte[] para almacenar la imagen como datos binarios
 	
+    public Departamento() {
+    	idDepartamento = 0;
+    	nombre = "";
+    	capacidad = 0;
+    	nroHabitaciones = 0;
+		descripcion = "";
+		serviciosIncluidos = "";
+		disponibilidad = "";
+		precioPorNoche = 0.0;
+	}
+    
     public Departamento(int idDepartamento, String nombre, int capacidad, int nroHabitaciones, String descripcion,
-			String serviciosIncluidos, String disponibilidad, double precioPorNoche, byte[] imagenHabitacion) {
+			String serviciosIncluidos, String disponibilidad, double precioPorNoche) {
 		super();
 		this.idDepartamento = idDepartamento;
 		this.nombre = nombre;
@@ -25,20 +40,6 @@ public class Departamento implements Serializable{
 		this.serviciosIncluidos = serviciosIncluidos;
 		this.disponibilidad = disponibilidad;
 		this.precioPorNoche = precioPorNoche;
-		this.imagenHabitacion = imagenHabitacion;
-	}
-
-	public Departamento(String nombre, int capacidad, int nroHabitaciones, String descripcion,
-			String serviciosIncluidos, String disponibilidad, double precioPorNoche, byte[] imagenHabitacion) {
-		super();
-		this.nombre = nombre;
-		this.capacidad = capacidad;
-		this.nroHabitaciones = nroHabitaciones;
-		this.descripcion = descripcion;
-		this.serviciosIncluidos = serviciosIncluidos;
-		this.disponibilidad = disponibilidad;
-		this.precioPorNoche = precioPorNoche;
-		this.imagenHabitacion = imagenHabitacion;
 	}
 
 	public int getIdDepartamento() {
@@ -104,12 +105,44 @@ public class Departamento implements Serializable{
 	public void setPrecioPorNoche(double precioPorNoche) {
 		this.precioPorNoche = precioPorNoche;
 	}
-
-	public byte[] getImagenHabitacion() {
-		return imagenHabitacion;
-	}
-
-	public void setImagenHabitacion(byte[] imagenHabitacion) {
-		this.imagenHabitacion = imagenHabitacion;
-	}
+	
+	// Método de Acceso a Datos
+		public List<Departamento> buscarPorId(int idBuscar) {
+			// Establecer la conexion con la BD
+			Connection cnx = DataBase.getConnexion();
+			// Declarar la lista de Departamento
+			List<Departamento> listaDepartamentos = new ArrayList<Departamento>();
+			try {
+				// Preparar la instruccion SQL
+				PreparedStatement ps = cnx.prepareStatement("SELECT * FROM Departamento WHERE ID_Departamento LIKE ?;");
+				// Enviar el valor del parametro SQL
+				ps.setInt(1, idBuscar );
+				// Ejecuar la instruccion SQL y recoger los resultados
+				ResultSet rs = ps.executeQuery(); // SELECT
+				// ps.executeUpdate(); // INSERT - UPDATE - DELETE
+				while(rs.next()) {
+					// Instanciar objeto departamento
+					Departamento depa = new Departamento();
+					// Guardar los valores de la fila en el objeto
+					depa.setIdDepartamento(rs.getInt("ID_Departamento"));
+					depa.setNombre(rs.getString("Nombre"));
+					depa.setCapacidad(rs.getInt("capacidad"));
+					depa.setNroHabitaciones(rs.getInt("Número_Habitaciones"));
+					depa.setDescripcion(rs.getString("Descripción"));
+					depa.setServiciosIncluidos(rs.getString("Servicios_Incluidos"));
+					depa.setDisponibilidad(rs.getString("Disponibilidad"));
+					depa.setPrecioPorNoche(rs.getDouble("Precio_Por_Noche"));
+				    
+					// Agregar el departamento a la lista de departamentos
+					listaDepartamentos.add(depa);
+				}
+				// Cerrar conexion con la BD
+				cnx.close();
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+			// Retornar la lista de departamentos
+			return listaDepartamentos;
+		}
 }

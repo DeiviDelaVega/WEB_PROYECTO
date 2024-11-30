@@ -18,14 +18,15 @@
   <input type="password" id="clave" name="clave" ><br><br>
   
   <input type="submit" value="Ingresar">
-</form> 
+  <button>Registrarte</button>
+</form>
+
+
 		<%String mensaje = request.getParameter("mensaje");
 		if(mensaje!=null) {
 	%>
 	<p><%= mensaje%></p>
 	<% } %>
-
-
 
 </body>
 </html>
