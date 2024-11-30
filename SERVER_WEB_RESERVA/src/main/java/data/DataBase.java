@@ -15,9 +15,9 @@ public class DataBase {
 			
 
 			
-			String conexion = "jdbc:mysql://localhost:3306/DB_Reserva_AlojamientoTemporal";
+			String conexion = "jdbc:mysql://localhost:3306/Prueba2";
 			String usuario = "root";
-			String contrasena = "Madeley29.";
+			String contrasena = "alomomola890.";
 			
 			con = DriverManager.getConnection(conexion, usuario, contrasena);
 			

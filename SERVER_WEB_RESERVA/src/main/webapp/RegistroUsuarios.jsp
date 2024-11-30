@@ -7,30 +7,21 @@
 <title>Insert title here</title>
 </head>
 <body>        
-     	<label for="nombre">Nombre:</label><br>
-  		<input type="text" id="nombre" name="nombre"><br><br>
-  		
-  		<label for="apellido">Apellido:</label><br>
-  		<input type="text" id="apellido" name="apellido"><br><br>
-  		
-  		<label for="correo">Correo:</label><br>
-  		<input type="email" id="correo" name="correo"><br><br>
-  		
-  		<label for="usuario">Usuario:</label><br>
-        <input type="text" id="usuario" name="usuario" ><br>
-          
-  		<label for="lname">Clave:</label><br>
-        <input type="password" id="clave" name="clave" ><br><br>
-         
-          <label for="rol">Rol:</label>
-         <select id="rol" name="rol">
-         <option value="empleado">Empleado</option>
-         <option value="usuario">Usuario</option>
-         
-        </select><br><br>
-  		
-  	   <button type="submit">Registrarte</button>
-
-
+     <form action="ServletRegistrar" method="post">
+   
+        <label for="nombre">Nombre completo:</label>
+        <input type="text" name="nombre" id="nombre" required><br><br>
+        
+        <label for="correo">Correo electrónico:</label>
+        <input type="email" name="correo" id="correo" required><br><br>
+        
+        <label for="clave">Contraseña:</label>
+        <input type="password" name="clave" id="clave" required><br><br>
+        
+        <button type="submit">Registrarse</button>
+    </form>
+    
+    <p>¿Ya tienes cuenta? <a href="login.jsp">Inicia sesión aquí</a></p>
+ 
 </body>
 </html>
