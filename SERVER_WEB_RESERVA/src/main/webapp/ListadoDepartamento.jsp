@@ -54,6 +54,7 @@ if(listaDepartamentos != null && !listaDepartamentos.isEmpty()) {
 				<td><%=departamento.getDescripcion()%></td>
 				<td><%=departamento.getServiciosIncluidos()%></td>
 				<td><%=departamento.getDisponibilidad()%></td>
+				<td><%=departamento.getPrecioPorNoche()%></td>
 			</tr>
 <%	} // Llave de cierre del bucle for%>
 		</tbody>

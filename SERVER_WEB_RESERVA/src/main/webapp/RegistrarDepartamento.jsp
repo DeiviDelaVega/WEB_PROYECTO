@@ -9,8 +9,6 @@
 <body>
 <h2>Registro de Departamentos</h2>
 
-
-
 	<form action="departamento" method="post">
 		<label for="nombre">Nombre:</label><br>
   		<input type="text" id="nombre" name="nombre"><br><br>
