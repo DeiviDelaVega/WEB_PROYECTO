@@ -8,16 +8,15 @@
 </head>
 <body>
 <h2>Registro de Departamentos</h2>
-
 	<form action="departamento" method="post">
 		<label for="nombre">Nombre:</label><br>
   		<input type="text" id="nombre" name="nombre"><br><br>
   		
   		<label for="capacidad">Capacidad:</label><br>
-  		<input type="text" id="capacidad" name="capacidad"><br><br>
+  		<input type="number" id="capacidad" name="capacidad" min=1><br><br>
   		
   		<label for="nroHabitaciones">Número Habitaciones:</label><br>
-  		<input type="text" id="nroHabitaciones" name="nroHabitaciones"><br><br>
+  		<input type="number" id="nroHabitaciones" name="nroHabitaciones" min=1><br><br>
   		
   		<label for="descripcion">Descripción:</label><br>
   		<input type="text" id="descripcion" name="descripcion"><br><br>
@@ -35,15 +34,10 @@
   		<label for="No">Indisponible</label><br><br>
 
   		<label for="precioPorNoche">Precio por Noche:</label><br>
-  		<input type="text" id="precioPorNoche" name="precioPorNoche"><br><br>
+  		<input type="number" id="precioPorNoche" name="precioPorNoche" min="0.01" step="0.01"><br><br>
   		
-
   		<input type="submit" value="Ingresar">
+  		<input type="button" value="Listado" onclick="window.location.href='ListadoDepartamento.jsp'">
 	</form>
-		<%String mensaje = request.getParameter("mensaje");
-		if(mensaje!=null) {
-	%>
-	<p><%= mensaje%></p>
-	<% } %>
 </body>
 </html>

@@ -16,17 +16,21 @@
 	<input type="button" value="Agregar departamento" onclick="window.location.href='RegistrarDepartamento.jsp'">
 	<hr>
 	<form action="buscarDepartamento" method="post">
-		<label for="IdBuscar">ID:</label>
-		<input type="number" id="IdBuscar" name="txtIdBuscar" placeholder="Ingrese el ID del departamento a buscar." min="1">
-		<input type="submit" value="Buscar">
+		<div class="d-flex justify-content-center">
+			<label for="IdBuscar">ID:</label>
+			<input type="number" id="IdBuscar" name="txtIdBuscar" class="w-50 form-control" placeholder="Ingrese el ID del departamento a buscar" min="1">
+			<input type="submit" value="Buscar">
+		</div>
 	</form>
 	<hr>
 <%
 @SuppressWarnings("unchecked") // Ignorar advertencia de conversión explicita (es opcional)
 // Obtener la lista de departamentos que se pasó desde el Servlet
 List<Departamento> listaDepartamentos = (List<Departamento>) request.getAttribute("listaDeDepartamentos");
+Boolean esBusqueda = (Boolean) request.getAttribute("esBusqueda");
+if (esBusqueda == null) esBusqueda = false; // Fallback por seguridad
 %>
-	<table border=1>
+	<table class = "table table-bordered">
 		<thead>
 			<tr>
 				<th>ID</th>
@@ -58,17 +62,29 @@ List<Departamento> listaDepartamentos = (List<Departamento>) request.getAttribut
 			</tr>
 <%		} // Llave de cierre del bucle for%>
 <%	} // Llave de cierre de la estructura if
+	else if (esBusqueda) {
+%>
+		<tr>
+			<!-- 
+				colspan para mostrar un mensaje que abarque toda la fila. 
+				El numero 8 porque son ocho columnas las que hay en la tabla.
+			-->
+         	<td colspan="8" class="text-center text-danger">No existe el departamento con el ID ingresado</td>
+ 		</tr>
+<%
+  	} // Llave de cierre de else if
+	else if (listaDepartamentos != null && listaDepartamentos.isEmpty()) {
+%>
+		<tr>
+            <td colspan="8" class="text-center text-warning">No se encuentran departamentos registrados</td>
+        </tr>
+<%
+    } // Llave de cierre de else if
 	else {
 %>
-			<tr>
-				<!-- 
-					colspan para mostrar un mensaje que abarque toda la fila. 
-					El numero 8 porque son ocho columnas las que hay en la tabla.
-				-->
-                <td colspan="8">No existe el departamento con el ID ingresado</td>
-            </tr>
+
 <%
-  	}
+    } // Llave de cierre de else
 %>
 		</tbody>
 	</table>

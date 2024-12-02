@@ -19,6 +19,10 @@ public class ServletBuscarDepartamento extends HttpServlet {
 	    Departamento departamento = new Departamento();
 	    List<Departamento> listaDepartamentos = departamento.buscarPorId(-1); // Búsqueda sin filtro
 	    request.setAttribute("listaDeDepartamentos", listaDepartamentos);
+	    
+	    // Marcar que no se realizó una búsqueda específica
+        request.setAttribute("esBusqueda", false);
+        
 		// Crear el despachador con la ruta de la página
 		RequestDispatcher rd = request.getRequestDispatcher("ListadoDepartamento.jsp");
 		// Ejecutar despachador
@@ -28,13 +32,15 @@ public class ServletBuscarDepartamento extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Obtener el parámetro de búsqueda del ID del departamento
 	    String idBuscarStr = request.getParameter("txtIdBuscar");
-
+	    boolean esBusqueda = true; // Indica que se realizó una búsqueda específica
+        List<Departamento> listaDepartamentos;
+        
 	    // Verificar si el parámetro está vacío
 	    if (idBuscarStr == null || idBuscarStr.trim().isEmpty()) {
 	    	// Si el ID está vacío, buscar todos los departamentos
 	        Departamento departamento = new Departamento();
-	        List<Departamento> listaDepartamentos = departamento.buscarPorId(-1); // Búsqueda sin filtro
-	        request.setAttribute("listaDeDepartamentos", listaDepartamentos);
+	        listaDepartamentos = departamento.buscarPorId(-1); // Búsqueda sin filtro
+	        esBusqueda = false; // No es una búsqueda específica
 	    } else {
             // Convertir el parámetro a un entero y buscar por ID:
 	    	// Intentar convertir el parámetro a un número entero
@@ -42,10 +48,12 @@ public class ServletBuscarDepartamento extends HttpServlet {
             // Instanciar clase Departamento
             Departamento departamento = new Departamento();
             // Ejecutar método de búsqueda y recoger resultados
-            List<Departamento> listaDepartamentos = departamento.buscarPorId(idBuscar);
-            // Enviar la lista de departamentos a la página correspondiente
-            request.setAttribute("listaDeDepartamentos", listaDepartamentos);
+            listaDepartamentos = departamento.buscarPorId(idBuscar);
         }
+        // Enviar la lista de departamentos a la página correspondiente
+	    request.setAttribute("listaDeDepartamentos", listaDepartamentos);
+	    // Indicar si se trata de una búsqueda específica o no
+        request.setAttribute("esBusqueda", esBusqueda);
 	    // Redirigir a la JSP:
 		// Crear el despachador con la ruta de la página
 		RequestDispatcher rd = request.getRequestDispatcher("ListadoDepartamento.jsp");
