@@ -15,6 +15,10 @@ public class ServletBuscarDepartamento extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// Buscar todos los departamentos al cargar la página
+	    Departamento departamento = new Departamento();
+	    List<Departamento> listaDepartamentos = departamento.buscarPorId(-1); // Búsqueda sin filtro
+	    request.setAttribute("listaDeDepartamentos", listaDepartamentos);
 		// Crear el despachador con la ruta de la página
 		RequestDispatcher rd = request.getRequestDispatcher("ListadoDepartamento.jsp");
 		// Ejecutar despachador
@@ -27,21 +31,22 @@ public class ServletBuscarDepartamento extends HttpServlet {
 
 	    // Verificar si el parámetro está vacío
 	    if (idBuscarStr == null || idBuscarStr.trim().isEmpty()) {
-	        // Si el parámetro está vacío, puedes redirigir con un mensaje de error o mostrar un mensaje en la JSP
-	        request.setAttribute("error", "El campo ID no puede estar vacío.");
-	        RequestDispatcher rd = request.getRequestDispatcher("ListadoDepartamento.jsp");
-	        rd.forward(request, response);
-	        return; // Salir del método si no se recibe un valor válido
-	    }
-	    
-		// Intentar convertir el parámetro a un número entero
-        int idBuscar = Integer.parseInt(idBuscarStr);
-		// Instanciar clase Departamento
-		Departamento departamento = new Departamento();
-		// Ejecutar método de búsqueda y recoger resultados
-		List<Departamento> listaDepartamentos = departamento.buscarPorId(idBuscar);
-		// Enviar la lista de departamentos a la página correspondiente
-		request.setAttribute("listaDeDepartamentos", listaDepartamentos);
+	    	// Si el ID está vacío, buscar todos los departamentos
+	        Departamento departamento = new Departamento();
+	        List<Departamento> listaDepartamentos = departamento.buscarPorId(-1); // Búsqueda sin filtro
+	        request.setAttribute("listaDeDepartamentos", listaDepartamentos);
+	    } else {
+            // Convertir el parámetro a un entero y buscar por ID:
+	    	// Intentar convertir el parámetro a un número entero
+            int idBuscar = Integer.parseInt(idBuscarStr);
+            // Instanciar clase Departamento
+            Departamento departamento = new Departamento();
+            // Ejecutar método de búsqueda y recoger resultados
+            List<Departamento> listaDepartamentos = departamento.buscarPorId(idBuscar);
+            // Enviar la lista de departamentos a la página correspondiente
+            request.setAttribute("listaDeDepartamentos", listaDepartamentos);
+        }
+	    // Redirigir a la JSP:
 		// Crear el despachador con la ruta de la página
 		RequestDispatcher rd = request.getRequestDispatcher("ListadoDepartamento.jsp");
 		// Ejecutar despachador

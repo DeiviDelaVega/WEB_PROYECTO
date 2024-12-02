@@ -25,8 +25,6 @@
 @SuppressWarnings("unchecked") // Ignorar advertencia de conversión explicita (es opcional)
 // Obtener la lista de departamentos que se pasó desde el Servlet
 List<Departamento> listaDepartamentos = (List<Departamento>) request.getAttribute("listaDeDepartamentos");
-// Verificar si la lista de departamentos: no es null y no está vacía
-if(listaDepartamentos != null && !listaDepartamentos.isEmpty()) {
 %>
 	<table border=1>
 		<thead>
@@ -43,8 +41,10 @@ if(listaDepartamentos != null && !listaDepartamentos.isEmpty()) {
 		</thead>
 		<tbody>
 <%
+	//Verificar si la lista de departamentos: no es null y no está vacía
+	if(listaDepartamentos != null && !listaDepartamentos.isEmpty()) {
 	// Recorrer la lista de departamentos y mostrar cada uno en una fila
-	for(Departamento departamento : listaDepartamentos) {
+		for(Departamento departamento : listaDepartamentos) {
 %>
 			<tr>
 				<td><%=departamento.getIdDepartamento()%></td>
@@ -56,9 +56,21 @@ if(listaDepartamentos != null && !listaDepartamentos.isEmpty()) {
 				<td><%=departamento.getDisponibilidad()%></td>
 				<td><%=departamento.getPrecioPorNoche()%></td>
 			</tr>
-<%	} // Llave de cierre del bucle for%>
+<%		} // Llave de cierre del bucle for%>
+<%	} // Llave de cierre de la estructura if
+	else {
+%>
+			<tr>
+				<!-- 
+					colspan para mostrar un mensaje que abarque toda la fila. 
+					El numero 8 porque son ocho columnas las que hay en la tabla.
+				-->
+                <td colspan="8">No existe el departamento con el ID ingresado</td>
+            </tr>
+<%
+  	}
+%>
 		</tbody>
 	</table>
-<%} // Llave de cierre de la estructura if%>
 </body>
 </html>

@@ -1,5 +1,5 @@
-
 package modelo;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -107,42 +107,54 @@ public class Departamento{
 	}
 	
 	// Método de Acceso a Datos
-		public List<Departamento> buscarPorId(int idBuscar) {
-			// Establecer la conexion con la BD
-			Connection cnx = DataBase.getConnexion();
-			// Declarar la lista de Departamento
-			List<Departamento> listaDepartamentos = new ArrayList<Departamento>();
-			try {
-				// Preparar la instruccion SQL
-				PreparedStatement ps = cnx.prepareStatement("SELECT * FROM Departamento WHERE ID_Departamento LIKE ?;");
-				// Enviar el valor del parametro SQL
-				ps.setInt(1, idBuscar );
-				// Ejecuar la instruccion SQL y recoger los resultados
-				ResultSet rs = ps.executeQuery(); // SELECT
-				// ps.executeUpdate(); // INSERT - UPDATE - DELETE
-				while(rs.next()) {
-					// Instanciar objeto departamento
-					Departamento depa = new Departamento();
-					// Guardar los valores de la fila en el objeto
-					depa.setIdDepartamento(rs.getInt("ID_Departamento"));
-					depa.setNombre(rs.getString("Nombre"));
-					depa.setCapacidad(rs.getInt("capacidad"));
-					depa.setNroHabitaciones(rs.getInt("Número_Habitaciones"));
-					depa.setDescripcion(rs.getString("Descripción"));
-					depa.setServiciosIncluidos(rs.getString("Servicios_Incluidos"));
-					depa.setDisponibilidad(rs.getString("Disponibilidad"));
-					depa.setPrecioPorNoche(rs.getDouble("Precio_Por_Noche"));
-				    
-					// Agregar el departamento a la lista de departamentos
-					listaDepartamentos.add(depa);
-				}
-				// Cerrar conexion con la BD
-				cnx.close();
-			}
-			catch (SQLException e) {
-				e.printStackTrace();
-			}
-			// Retornar la lista de departamentos
-			return listaDepartamentos;
-		}
+	public List<Departamento> buscarPorId(int idBuscar) {
+        // Establecer la conexión con la BD
+        Connection cnx = DataBase.getConnexion();
+        // Declarar la lista de Departamento
+        List<Departamento> listaDepartamentos = new ArrayList<>();
+        try {
+        	// Preparar la instruccion SQL:
+            PreparedStatement ps;
+            if (idBuscar == -1) {
+                // Buscar todos los departamentos
+                ps = cnx.prepareStatement("SELECT * FROM Departamento");
+            } else {
+                // Buscar por ID
+                ps = cnx.prepareStatement("SELECT * FROM Departamento WHERE ID_Departamento LIKE ?");
+                // Enviar el valor del parametro SQL
+                ps.setString(1, "%" + idBuscar + "%");
+            }
+            // Ejecuar la instruccion SQL y recoger los resultados		
+            ResultSet rs = ps.executeQuery(); // SELECT
+            			// ps.executeUpdate(); // INSERT - UPDATE - DELETE
+            while (rs.next()) {
+            	// Instanciar objeto departamento
+                Departamento departamento = new Departamento();
+                // Guardar los valores de la fila en el objeto
+                departamento.setIdDepartamento(rs.getInt("ID_Departamento"));
+				departamento.setNombre(rs.getString("Nombre"));
+				departamento.setCapacidad(rs.getInt("capacidad"));
+				departamento.setNroHabitaciones(rs.getInt("Número_Habitaciones"));
+				departamento.setDescripcion(rs.getString("Descripción"));
+				departamento.setServiciosIncluidos(rs.getString("Servicios_Incluidos"));
+				departamento.setDisponibilidad(rs.getString("Disponibilidad"));
+				departamento.setPrecioPorNoche(rs.getDouble("Precio_Por_Noche"));
+				// Agregar el departamento a la lista de departamentos
+                listaDepartamentos.add(departamento);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Cerrar la conexión con la BD (importante para evitar fugas de recursos)
+            try {
+                if (cnx != null) {
+                    cnx.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        // Retornar la lista de departamentos
+        return listaDepartamentos;
+    }
 }
