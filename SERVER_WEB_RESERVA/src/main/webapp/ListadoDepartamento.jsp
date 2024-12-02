@@ -82,7 +82,6 @@ if (esBusqueda == null) esBusqueda = false; // Fallback por seguridad
     } // Llave de cierre de else if
 	else {
 %>
-
 <%
     } // Llave de cierre de else
 %>
