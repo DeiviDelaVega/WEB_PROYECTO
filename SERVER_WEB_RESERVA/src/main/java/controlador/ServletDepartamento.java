@@ -19,11 +19,11 @@ public class ServletDepartamento extends HttpServlet {
 	private static final long serialVersionUID = 1L;
    
     public ServletDepartamento() {
-        super();
+        
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -57,12 +57,12 @@ public class ServletDepartamento extends HttpServlet {
 			PreparedStatement ps = cnx.prepareStatement(sql);
 				// 2.2. Completar la sentencia INSERT
 			ps.setString(1, nombre);
-			ps.setInt(2,capacidad);
-			ps.setInt(3,nroHabitaciones);
+			ps.setInt(2, capacidad);
+			ps.setInt(3, nroHabitaciones);
 			ps.setString(4, descripcion);
 			ps.setString(5, serviciosIncluidos);
 			ps.setString(6, disponibilidad);
-			ps.setDouble(7,(precioPorNoche));
+			ps.setDouble(7, precioPorNoche);
 			
 			// Aquí es donde hemos cambiado a setBytes para almacenar los datos binarios de la imagen
 	  //      if (imagenBytes != null) {
@@ -80,4 +80,4 @@ public class ServletDepartamento extends HttpServlet {
 		}
 	}
 
-	}
+}

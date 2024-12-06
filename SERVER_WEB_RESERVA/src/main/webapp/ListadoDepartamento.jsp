@@ -41,6 +41,7 @@ if (esBusqueda == null) esBusqueda = false; // Fallback por seguridad
 				<th>Servicios incluidos</th>
 				<th>Disponibilidad</th>
 				<th>Precio por noche</th>
+				<th>Mantenimiento</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -59,6 +60,15 @@ if (esBusqueda == null) esBusqueda = false; // Fallback por seguridad
 				<td><%=departamento.getServiciosIncluidos()%></td>
 				<td><%=departamento.getDisponibilidad()%></td>
 				<td><%=departamento.getPrecioPorNoche()%></td>
+				<td>
+					<a href="eliminarDepartamento?id=<%= departamento.getIdDepartamento() %>" 
+  					   class="btn btn-danger" 
+  					   onclick="return confirm('¿Estás seguro de que deseas eliminar este departamento?');">Eliminar
+  					</a>			   
+					<a href="modificarDepartamento?id=<%= departamento.getIdDepartamento() %>" 
+  					   class="btn btn-primary">Modificar
+  					</a>
+				</td>	
 			</tr>
 <%		} // Llave de cierre del bucle for%>
 <%	} // Llave de cierre de la estructura if
