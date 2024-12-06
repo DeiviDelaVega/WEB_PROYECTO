@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import dao.DAODepartamento;
 import modelo.Departamento;
 
 @WebServlet("/buscarDepartamento")
@@ -16,8 +17,8 @@ public class ServletBuscarDepartamento extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Buscar todos los departamentos al cargar la página
-	    Departamento departamento = new Departamento();
-	    List<Departamento> listaDepartamentos = departamento.buscarPorId(-1); // Búsqueda sin filtro
+	    DAODepartamento daoDepartamento = new DAODepartamento();
+	    List<Departamento> listaDepartamentos = daoDepartamento.buscarPorId(-1); // Búsqueda sin filtro
 	    request.setAttribute("listaDeDepartamentos", listaDepartamentos);
 	    
 	    // Marcar que no se realizó una búsqueda específica
@@ -34,21 +35,19 @@ public class ServletBuscarDepartamento extends HttpServlet {
 	    String idBuscarStr = request.getParameter("txtIdBuscar");
 	    boolean esBusqueda = true; // Indica que se realizó una búsqueda específica
         List<Departamento> listaDepartamentos;
-        
+        // Instanciar DAODepartamento
+        DAODepartamento daoDepartamento = new DAODepartamento();
 	    // Verificar si el parámetro está vacío
 	    if (idBuscarStr == null || idBuscarStr.trim().isEmpty()) {
 	    	// Si el ID está vacío, buscar todos los departamentos
-	        Departamento departamento = new Departamento();
-	        listaDepartamentos = departamento.buscarPorId(-1); // Búsqueda sin filtro
+	        listaDepartamentos = daoDepartamento.buscarPorId(-1); // Búsqueda sin filtro
 	        esBusqueda = false; // No es una búsqueda específica
 	    } else {
             // Convertir el parámetro a un entero y buscar por ID:
 	    	// Intentar convertir el parámetro a un número entero
             int idBuscar = Integer.parseInt(idBuscarStr);
-            // Instanciar clase Departamento
-            Departamento departamento = new Departamento();
             // Ejecutar método de búsqueda y recoger resultados
-            listaDepartamentos = departamento.buscarPorId(idBuscar);
+            listaDepartamentos = daoDepartamento.buscarPorId(idBuscar);
         }
         // Enviar la lista de departamentos a la página correspondiente
 	    request.setAttribute("listaDeDepartamentos", listaDepartamentos);
@@ -60,5 +59,5 @@ public class ServletBuscarDepartamento extends HttpServlet {
 		// Ejecutar despachador
 		rd.forward(request, response);
 	}
-
+	
 }
