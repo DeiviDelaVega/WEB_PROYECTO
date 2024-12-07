@@ -15,11 +15,17 @@
 	<hr>
 	<input type="button" value="Agregar departamento" onclick="window.location.href='RegistrarDepartamento.jsp'">
 	<hr>
-	<form action="buscarDepartamento" method="post">
+	<form action="departamento" method="post">
+		<!-- Campo oculto que pasa la opción 'buscar' al servlet -->
+    	<input type="hidden" name="opcion" value="buscar">
+    	<!-- Campo oculto que pasa la opción 'modificar' al servlet -->
+    	<input type="hidden" name="opcion" value="modificar">
+    	<!-- Campo oculto que pasa la opción 'eliminar' al servlet -->
+    	<input type="hidden" name="opcion" value="eliminar">
 		<div class="d-flex justify-content-center">
 			<label for="IdBuscar">ID:</label>
 			<input type="number" id="IdBuscar" name="txtIdBuscar" class="w-50 form-control" placeholder="Ingrese el ID del departamento a buscar" min="1">
-			<input type="submit" value="Buscar">
+			<input type="submit" value="Buscar" >
 		</div>
 	</form>
 	<hr>
@@ -61,14 +67,13 @@ if (esBusqueda == null) esBusqueda = false; // Fallback por seguridad
 				<td><%=departamento.getDisponibilidad()%></td>
 				<td><%=departamento.getPrecioPorNoche()%></td>
 				<td>
-					<a href="eliminarDepartamento?id=<%= departamento.getIdDepartamento() %>" 
-  					   class="btn btn-danger" 
-  					   onclick="return confirm('¿Estás seguro de que deseas eliminar este departamento?');">Eliminar
-  					</a>			   
-					<a href="modificarDepartamento?id=<%= departamento.getIdDepartamento() %>" 
-  					   class="btn btn-primary">Modificar
-  					</a>
-				</td>	
+        			<!-- Botón para eliminar -->
+        			<input class="btn btn-danger" type="button" value="Eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar este departamento?');">
+        			
+        			<!-- Botón para modificar -->
+        			<input class="btn btn-primary" type="button" value="Modificar">
+        			<!--  <button class="btn btn-primary" type="submit" onclick="window.location.href='ModificarDepartamento.jsp'"> Modificar </button> -->
+    			</td>	
 			</tr>
 <%		} // Llave de cierre del bucle for%>
 <%	} // Llave de cierre de la estructura if

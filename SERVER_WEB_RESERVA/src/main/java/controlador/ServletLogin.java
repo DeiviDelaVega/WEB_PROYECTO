@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import data.DataBase;
+import lib.DataBase;
 import modelo.Usuario;
 import modelo.UsuarioDao;
 

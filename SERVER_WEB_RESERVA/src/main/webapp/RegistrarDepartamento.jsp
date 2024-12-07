@@ -9,6 +9,10 @@
 <body>
 	<h2>Registro de Departamentos</h2>
 	<form action="departamento" method="post">
+		<!-- Campo oculto que pasa la opción 'registrar' al servlet -->
+    	<input type="hidden" name="opcion" value="registrar">
+    	
+    	<!-- Otros campos del formulario -->
 		<label for="nombre">Nombre:</label><br>
   		<input type="text" id="nombre" name="nombre"><br><br>
   		
@@ -24,7 +28,7 @@
   		<label for="serviciosIncluidos">Servicios Incluidos:</label><br>
   		<input type="text" id="serviciosIncluidos" name="serviciosIncluidos"><br><br>
   		
-  		<!--  Radio botones para estado civil -->
+  		<!--  Radio botones ss-->
   		<label for="disponibilidad">Disponibilidad:</label><br>
   		
   		<input type="radio" id="Si" name="disponibilidad" value="Si">
@@ -36,7 +40,8 @@
   		<label for="precioPorNoche">Precio por Noche:</label><br>
   		<input type="number" id="precioPorNoche" name="precioPorNoche" min="0.01" step="0.01"><br><br>
   		
-  		<input type="submit" value="Ingresar">
+  		<!-- Botón de tipo submit -->
+    	<input type="submit" value="Registrar">
   		<input type="button" value="Listado" onclick="window.location.href='ListadoDepartamento.jsp'">
 	</form>
 </body>
