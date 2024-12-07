@@ -1,3 +1,4 @@
+<%@page import="modelo.Departamento"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -8,7 +9,7 @@
 </head>
 <body>
 	<h2>Modificacion de Departamento</h2>
-	<form action="modificarDepartamento" method="post">
+	<form action="departamento" method="post">
     	<!-- Campo oculto para el ID del departamento -->
     	<input type="hidden" id="idDepartamento" name="idDepartamento" value="${departamento.idDepartamento}">
 		<!-- Campo oculto que pasa la opción 'guardar' al servlet -->
@@ -38,7 +39,7 @@
    		<label for="precioPorNoche">Precio por Noche:</label><br> 
     	<input type="number" id="precioPorNoche" name="precioPorNoche" value="${departamento.precioPorNoche}" min="0.01" step="0.01"><br><br>
     
-    	<input type="button" value="Guardar">
+    	<input type="submit" value="Guardar" name="opcion" value="guardar">
     	<input type="button" value="Cancelar" onclick="window.location.href='ListadoDepartamento.jsp'">
 	</form>
 </body>
