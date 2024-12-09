@@ -28,8 +28,6 @@ public class UsuarioDao {
         	
             return new Usuario(
             		
-                rs.getInt("ID"),
-                rs.getString("Nombre"),
                 rs.getString("Correo"),
                 rs.getString("Clave"),
                 rs.getString("Rol")
@@ -40,14 +38,13 @@ public class UsuarioDao {
 	
 	public boolean registrarUsuario(Usuario usuario) throws SQLException {
 		
-		String sql = "INSERT INTO Usuario(Nombre, Correo, Clave, Rol) VALUES (?, ?, ?, ?)";
+		String sql = "INSERT INTO Usuario( Correo, Clave, Rol) VALUES ( ?, ?, ?)";
 		
 		PreparedStatement ps = con.prepareStatement(sql);
 		
-		ps.setString(1, usuario.getNombre());
-		ps.setString(2, usuario.getCorreo());
-		ps.setString(3, usuario.getClave());
-		ps.setString(4, usuario.getRol());
+		ps.setString(1, usuario.getCorreo());
+		ps.setString(2, usuario.getClave());
+		ps.setString(3, usuario.getRol());
 		
 		return ps.executeUpdate() > 0;
 		

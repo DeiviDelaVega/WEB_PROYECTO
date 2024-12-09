@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import data.DataBase;
+import modelo.DAOEmpleado;
+import modelo.Empleado;
 import modelo.Usuario;
 import modelo.UsuarioDao;
 
@@ -32,36 +34,42 @@ public class servletEmpleado extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		  HttpSession session = request.getSession();
-	        Usuario admin = (Usuario) session.getAttribute("usuario");
+		     int idAsignacion =Integer.parseInt(request.getParameter("rol")) ;
+			 String nombre = request.getParameter("nombre");
+			 String apellido = request.getParameter("apellido");
+		     String telefono = request.getParameter("telefono");
+		     int nro_Documento =Integer.parseInt(request.getParameter("nro_documento"));
+		     String correoElectronico =  request.getParameter("correo");
+		     String clave = request.getParameter("clave");
+		     
 
-	        if (admin != null && "Admin".equals(admin.getRol())) {
-	            String nombre = request.getParameter("nombre");
-	            String correo = request.getParameter("correo");
-	            String clave = request.getParameter("clave");
+				DAOEmpleado dao = new DAOEmpleado();
+				
+				Empleado empleado= new Empleado(idAsignacion,nombre,apellido,nro_Documento,telefono, clave,correoElectronico);
+				
+				try {
+					boolean empleadoRegistrado = dao.registrarEmpleado(empleado);
+					
+					if (empleadoRegistrado ) {
+						response.sendRedirect("inicioEmpleado.jsp");
 
-	            try {
-	                UsuarioDao dao = new UsuarioDao();
-
-	                Usuario empleado = new Usuario(nombre, correo, clave, "Empleado");
-
-	                if (dao.registrarUsuario(empleado)) {
-	                    response.sendRedirect("admin.jsp?success=Empleado creado con éxito");
-	                } else {
-	                    response.sendRedirect("admin.jsp?error=No se pudo crear el empleado.");
-	                }
-	            } catch (Exception e) {
-	                e.printStackTrace();
-	                response.sendRedirect("admin.jsp?error=Error del servidor.");
-	            }
-	        } else {
-	            response.sendRedirect("login.jsp?error=Acceso no autorizado");
-	        }
-	 
-	}
-	
-
-
+						
+					 } else {
+						
+						
+							response.sendRedirect("RegistroEmpleado.jsp?mensaje=" + "ERROR EN EL REGISTRO RATA");					
+					
+					 }
+					
+				}  catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					response.sendRedirect("login.jsp");
+				}
+				
+			}
+			
+		
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	}
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

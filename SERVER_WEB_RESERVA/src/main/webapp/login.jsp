@@ -7,6 +7,8 @@
 </head>
 <body>
     <h2>Iniciar Sesión</h2>
+    
+    
     <form action="Login" method="post">
         <label for="correo">Correo electrónico:</label>
         <input type="email" name="correo" id="correo" required><br><br>
