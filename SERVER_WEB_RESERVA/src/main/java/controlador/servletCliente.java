@@ -56,7 +56,7 @@ public class servletCliente extends HttpServlet {
 			boolean clienteRegistrado = dao.registrarCliente(cliente);
 			
 			if (clienteRegistrado ) {
-				response.sendRedirect("inicioCliente.jsp");
+				response.sendRedirect("RegistroCliente.jsp?mensaje=" + "REGISTRO EXITOSO");	
 
 				
 			 } else {

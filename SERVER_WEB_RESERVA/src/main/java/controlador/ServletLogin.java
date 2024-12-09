@@ -51,6 +51,7 @@ public class ServletLogin extends HttpServlet {
 		try {
 			Usuario usuario = dao.validarUsuario(correo, clave);
 			
+			System.out.print("usuario"+usuario.getRol());
 			if (usuario != null) {
 				
 				HttpSession sn = request.getSession();
@@ -58,14 +59,14 @@ public class ServletLogin extends HttpServlet {
 				sn.setAttribute("usuario", usuario);
 				
 				switch (usuario.getRol()) {
-				case "Admin":
-					response.sendRedirect("admin.jsp");
+				case "admin":
+					response.sendRedirect("RegistroEmpleado.jsp");
 					break;
-				case "Empleado":
-					response.sendRedirect("empleado.jsp");
+				case "empleado":
+					response.sendRedirect("inicioEmpleado.jsp");
 					break;
-				case "Usuario":
-					response.sendRedirect("usuario.jsp");
+				case "cliente":
+					response.sendRedirect("inicioCliente.jsp");
 					break;
 				
 			    } 

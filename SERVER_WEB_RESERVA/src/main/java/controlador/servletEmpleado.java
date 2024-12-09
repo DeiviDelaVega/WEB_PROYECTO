@@ -51,8 +51,7 @@ public class servletEmpleado extends HttpServlet {
 					boolean empleadoRegistrado = dao.registrarEmpleado(empleado);
 					
 					if (empleadoRegistrado ) {
-						response.sendRedirect("inicioEmpleado.jsp");
-
+						response.sendRedirect("RegistroEmpleado.jsp?mensaje=" + "REGISTRO EXITOSO");	
 						
 					 } else {
 						
