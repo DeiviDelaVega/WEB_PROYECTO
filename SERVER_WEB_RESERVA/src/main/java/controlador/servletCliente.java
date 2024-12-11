@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import data.DAOCliente;
 import modelo.Cliente;
-import modelo.DAOCliente;
 
 /**
  * Servlet implementation class servletCliente

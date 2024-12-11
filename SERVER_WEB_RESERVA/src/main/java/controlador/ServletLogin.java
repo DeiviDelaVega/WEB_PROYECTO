@@ -1,7 +1,7 @@
 package controlador;
 
 import java.io.IOException;
-import java.sql.Connection;
+
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -11,9 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import data.DataBase;
+import data.DAOUsuario;
 import modelo.Usuario;
-import modelo.UsuarioDao;
 
 /**
  * Servlet implementation class ServletLogin
@@ -46,7 +45,7 @@ public class ServletLogin extends HttpServlet {
 		String clave = request.getParameter("clave");
 		
 		
-		UsuarioDao dao = new UsuarioDao();
+		DAOUsuario dao = new DAOUsuario();
 		
 		try {
 			Usuario usuario = dao.validarUsuario(correo, clave);
@@ -60,7 +59,7 @@ public class ServletLogin extends HttpServlet {
 				
 				switch (usuario.getRol()) {
 				case "admin":
-					response.sendRedirect("RegistroEmpleado.jsp");
+					response.sendRedirect("registro/RegistroEmpleado.jsp");
 					break;
 				case "empleado":
 					response.sendRedirect("inicioEmpleado.jsp");

@@ -15,11 +15,13 @@
 	<hr>
 	<input type="button" value="Agregar departamento" onclick="window.location.href='RegistrarDepartamento.jsp'">
 	<hr>
-	<form action="buscarDepartamento" method="post">
+	<form action="departamento" method="post">
+		<!-- Campo oculto que pasa la opción 'buscar' al servlet -->
+        <input type="hidden" name="opcion" value="buscarDepartamento">
 		<div class="d-flex justify-content-center">
 			<label for="IdBuscar">ID:</label>
 			<input type="number" id="IdBuscar" name="txtIdBuscar" class="w-50 form-control" placeholder="Ingrese el ID del departamento a buscar" min="1">
-			<input type="submit" value="Buscar">
+			<input type='submit' name='buscar'/>
 		</div>
 	</form>
 	<hr>
@@ -35,12 +37,11 @@ if (esBusqueda == null) esBusqueda = false; // Fallback por seguridad
 			<tr>
 				<th>ID</th>
 				<th>Nombre</th>
-				<th>Capacidad</th>
-				<th>Numero de habitaciones</th>
-				<th>Descripcion</th>
-				<th>Servicios incluidos</th>
 				<th>Disponibilidad</th>
 				<th>Precio por noche</th>
+				<th>Accion</th>
+				<th>Mantenimiento</th>
+				<th>Imagen:</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -53,12 +54,16 @@ if (esBusqueda == null) esBusqueda = false; // Fallback por seguridad
 			<tr>
 				<td><%=departamento.getIdDepartamento()%></td>
 				<td><%=departamento.getNombre()%></td>
-				<td><%=departamento.getCapacidad()%></td>
-				<td><%=departamento.getNroHabitaciones()%></td>
-				<td><%=departamento.getDescripcion()%></td>
-				<td><%=departamento.getServiciosIncluidos()%></td>
 				<td><%=departamento.getDisponibilidad()%></td>
 				<td><%=departamento.getPrecioPorNoche()%></td>
+				<td>
+                   <img src="<%= departamento.getImagenDepartamento() %>" alt="Imagen Departamento" style="width: 100px; height: auto;" />
+               </td>
+				<td> <a href="departamento?opcion=detalle&idDepartamento=<%=departamento.getIdDepartamento()%>" class="btn btn-success">Ver detalle</a> </td>
+				<td>
+        			<a href="departamento?opcion=eliminar&id=<%=departamento.getIdDepartamento()%>" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este departamento?');">Eliminar</a>
+    				<a href="departamento?opcion=modificar&id=<%=departamento.getIdDepartamento()%>" class="btn btn-primary">Modificar</a>
+    			</td>	
 			</tr>
 <%		} // Llave de cierre del bucle for%>
 <%	} // Llave de cierre de la estructura if
@@ -67,16 +72,16 @@ if (esBusqueda == null) esBusqueda = false; // Fallback por seguridad
 		<tr>
 			<!-- 
 				colspan para mostrar un mensaje que abarque toda la fila. 
-				El numero 8 porque son ocho columnas las que hay en la tabla.
+				El numero 6 porque son seis columnas las que hay en la tabla.
 			-->
-         	<td colspan="8" class="text-center text-danger">No existe el departamento con el ID ingresado</td>
+         	<td colspan="6" class="text-center text-danger">No existe el departamento con el ID ingresado</td>
  		</tr>
 <%
   	} // Llave de cierre de else if
 	else if (listaDepartamentos != null && listaDepartamentos.isEmpty()) {
 %>
 		<tr>
-            <td colspan="8" class="text-center text-warning">No se encuentran departamentos registrados</td>
+            <td colspan="6" class="text-center text-warning">No se encuentran departamentos registrados</td>
         </tr>
 <%
     } // Llave de cierre de else if

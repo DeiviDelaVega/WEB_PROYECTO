@@ -7,8 +7,14 @@
 <title>Registro de Departamentos</title>
 </head>
 <body>
+
+
+
+
+
 <h2>Registro de Departamentos</h2>
-	<form action="departamento" method="post">
+	<form action="departamento" method="POST" enctype="multipart/form-data" >
+	<input type="hidden" name="opcion" value="AgregarDepartamento">
 		<label for="nombre">Nombre:</label><br>
   		<input type="text" id="nombre" name="nombre"><br><br>
   		
@@ -36,8 +42,29 @@
   		<label for="precioPorNoche">Precio por Noche:</label><br>
   		<input type="number" id="precioPorNoche" name="precioPorNoche" min="0.01" step="0.01"><br><br>
   		
+  		 <label for="imagenDepartamento">Imagen:</label><br>
+  		 <input type="file" id="imagenDepartamento" name="imagenDepartamento"><br><br>
+ 
+  		
   		<input type="submit" value="Ingresar">
   		<input type="button" value="Listado" onclick="window.location.href='ListadoDepartamento.jsp'">
 	</form>
+	
+<%
+if(request.getAttribute("mensaje") != null) {
+	
+	String mensaje = (String)request.getAttribute("mensaje");
+
+%>
+
+
+<p><%=mensaje %></p>
+
+<%}%>
+
+	
+
+	
+	
 </body>
 </html>

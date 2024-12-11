@@ -1,10 +1,11 @@
-package modelo;
+package data;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import data.DataBase;
+import modelo.Cliente;
+import modelo.Usuario;
 
 public class DAOCliente {
 	Connection con = DataBase.getConnexion();
@@ -25,7 +26,7 @@ public boolean registrarCliente(Cliente cliente) throws SQLException {
 
 		if(ps.executeUpdate()>0){
 			
-            UsuarioDao usuariodao = new UsuarioDao();
+            DAOUsuario usuariodao = new DAOUsuario();
 			Usuario usuario = new Usuario(cliente.getCorreo(), cliente.getClave(),"cliente");
 			boolean usuarioRegistrado = usuariodao.registrarUsuario(usuario);
 			return usuarioRegistrado;

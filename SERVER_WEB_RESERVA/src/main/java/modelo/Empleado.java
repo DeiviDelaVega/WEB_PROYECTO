@@ -1,5 +1,7 @@
 package modelo;
 
+import java.sql.Date;
+
 public class Empleado {
 private int id_Empleado;
  private int  id_Asignacion;
@@ -9,7 +11,14 @@ private int id_Empleado;
  private   String Telefono;
  private String Correo_Electronico;
  private String clave;
+ private Date fecha_Contratación;
+ ;
  
+
+public Empleado() {
+
+}
+
 
 public Empleado(int id_Asignacion, String nombre, String apellido, int nro_Documento, String telefono,String clave,
 		String correo_Electronico) {
@@ -36,6 +45,16 @@ public Empleado(int id_Empleado, int id_Asignacion, String nombre, String apelli
 	Correo_Electronico = correo_Electronico;
 	this.clave=clave;
 
+}
+
+
+public Date getFecha_Contratación() {
+	return fecha_Contratación;
+}
+
+
+public void setFecha_Contratación(Date fecha_Contratación) {
+	this.fecha_Contratación = fecha_Contratación;
 }
 
 

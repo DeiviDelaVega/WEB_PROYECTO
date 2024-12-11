@@ -1,13 +1,13 @@
-package modelo;
+package data;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import data.DataBase;
+import modelo.Usuario;
 
-public class UsuarioDao {
+public class DAOUsuario {
 	
 	
 	Connection con = DataBase.getConnexion();

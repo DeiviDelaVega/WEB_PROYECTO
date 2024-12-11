@@ -14,10 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import data.DataBase;
-import modelo.DAOEmpleado;
+import data.DAOEmpleado;
 import modelo.Empleado;
-import modelo.Usuario;
-import modelo.UsuarioDao;
 
 
 /**
@@ -67,6 +65,8 @@ public class servletEmpleado extends HttpServlet {
 				}
 				
 			}
+	
+	
 			
 		
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
