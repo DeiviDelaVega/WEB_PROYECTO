@@ -229,7 +229,8 @@ public class DAODepartamento {
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
-				depaBuscado = new Departamento(rs.getInt("ID_Departamento"), rs.getString("Nombre"),
+				depaBuscado = new Departamento(
+						rs.getInt("ID_Departamento"), rs.getString("Nombre"),
 						rs.getInt("Capacidad"), rs.getInt("Número_Habitaciones"), rs.getString("Descripción"),
 						rs.getString("Servicios_Incluidos"), rs.getString("Disponibilidad"),
 						rs.getDouble("Precio_Por_Noche"), rs.getString("Imagen_Habitacion"));

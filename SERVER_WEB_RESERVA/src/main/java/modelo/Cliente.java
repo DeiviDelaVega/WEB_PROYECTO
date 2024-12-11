@@ -33,6 +33,15 @@ public class Cliente {
 		this.correo = correo;
 		this.clave = clave;
 	}
+	
+	
+	
+	public Cliente() {
+		
+	}
+	
+	
+	
 	public int getId_Cliente() {
 		return id_Cliente;
 	}

@@ -83,7 +83,7 @@
 
                </form>
                 <p class="text-center">
-                    ¿No tienes cuenta? <a href="registro/RegistroCliente.jsp">Regístrate aquí</a>
+                    ¿No tienes cuenta? <a href="RegistroCliente.jsp">Regístrate aquí</a>
                 </p>
 
         </div>

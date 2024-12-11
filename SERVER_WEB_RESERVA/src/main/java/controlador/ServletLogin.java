@@ -59,7 +59,7 @@ public class ServletLogin extends HttpServlet {
 				
 				switch (usuario.getRol()) {
 				case "admin":
-					response.sendRedirect("registro/RegistroEmpleado.jsp");
+					response.sendRedirect("RegistroEmpleado.jsp");
 					break;
 				case "empleado":
 					response.sendRedirect("inicioEmpleado.jsp");

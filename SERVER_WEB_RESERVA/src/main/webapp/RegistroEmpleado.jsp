@@ -12,9 +12,6 @@
 
 <form action="Empleado" method="post">
 
-
-
-
          <label for="rol">Rol:</label>
          <select id="rol" name="rol">
          <option value="1">Creador de Reservas</option>
