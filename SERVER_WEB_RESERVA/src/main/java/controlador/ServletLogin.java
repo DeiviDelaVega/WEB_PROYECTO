@@ -56,8 +56,10 @@ public class ServletLogin extends HttpServlet {
 				HttpSession sn = request.getSession();
 				
 				sn.setAttribute("usuario", usuario);
-				
+				sn.setAttribute("correoUsuario", usuario.getCorreo());
+
 				switch (usuario.getRol()) {
+		
 				case "admin":
 					response.sendRedirect("RegistroEmpleado.jsp");
 					break;

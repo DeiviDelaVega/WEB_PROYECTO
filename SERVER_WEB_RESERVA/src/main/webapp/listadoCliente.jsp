@@ -1,3 +1,4 @@
+<%@page import="modelo.Cliente"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -12,9 +13,9 @@
 <body>
 
 	<hr>
-	<input type="button" value="Agregar empleado" onclick="window.location.href='RegistroEmpleado.jsp'">
+	<input type="button" value="Agregar Cliente" onclick="window.location.href='RegistroCliente.jsp'">
 	<hr>
-	<form action="Empleado" method="post">
+	<form action="cliente" method="post">
 	<input type="hidden" name="opcion" value="buscar">
 	
 		<div class="d-flex justify-content-center">
@@ -27,7 +28,7 @@
 <%
 @SuppressWarnings("unchecked") // Ignorar advertencia de conversión explicita (es opcional)
 // Obtener la lista de departamentos que se pasó desde el Servlet
-List<Empleado> listaEmpleados = (List<Empleado>) request.getAttribute("listadoEmpleados");
+List<Cliente> listaClientes = (List<Cliente>) request.getAttribute("listaClientes");
 Boolean esBusqueda = (Boolean) request.getAttribute("esBusqueda");
 if (esBusqueda == null) esBusqueda = false; // Fallback por seguridad
 %>
@@ -38,31 +39,31 @@ if (esBusqueda == null) esBusqueda = false; // Fallback por seguridad
 				<th>Nombre</th>
 				<th>Apellido</th>
 				<th>Numero de documento</th>
+				<th>Direccion</th>
 				<th>Telefono</th>
-				<th>Correo electronico</th>
-				<th>Fecha de contrato</th>
+				<th>Correo</th>
 				
 			</tr>
 		</thead>
 		<tbody>
 <%
 	//Verificar si la lista de departamentos: no es null y no está vacía
-	if(listaEmpleados != null && !listaEmpleados.isEmpty()) {
+	if(listaClientes != null && !listaClientes.isEmpty()) {
 	// Recorrer la lista de departamentos y mostrar cada uno en una fila
-		for(Empleado empleado : listaEmpleados) {
+		for(Cliente cliente : listaClientes) {
 %>
 			<tr>
-				<td><%=empleado.getId_Empleado()%></td>
-				<td><%=empleado.getNombre()%></td>
-				<td><%=empleado.getApellido()%></td>
-				<td><%=empleado.getNro_Documento()%></td>
-				<td><%=empleado.getTelefono()%></td>
-				<td><%=empleado.getCorreo_Electronico()%></td>
-				<td><%=empleado.getFecha_Contratacion()%></td>
-					<td> <a href="Empleado?opcion=detalle&idEmpleado=<%=empleado.getId_Empleado()%>" class="btn btn-success">Ver detalle</a> </td>
+				<td><%=cliente.getId_Cliente()%></td>
+				<td><%=cliente.getNombre()%></td>
+				<td><%=cliente.getApellido()%></td>
+				<td><%=cliente.getNro_Documento()%></td>
+				<td><%=cliente.getDireccion()%></td>
+				<td><%=cliente.getTelefono()%></td>
+				<td><%=cliente.getCorreo()%></td>
+					<td> <a href="cliente?opcion=detalle&idCliente=<%=cliente.getId_Cliente()%>" class="btn btn-success">Ver detalle</a> </td>
 				<td>
-        			<a href="Empleado?opcion=eliminar&id=<%=empleado.getId_Empleado()%>&correo=<%=empleado.getCorreo_Electronico()%>" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este Empleado?');">Eliminar</a>
-    				<a href="Empleado?opcion=modificar&id=<%=empleado.getId_Empleado()%>" class="btn btn-primary">Modificar</a>
+        			<a href="cliente?opcion=eliminar&id=<%=cliente.getId_Cliente()%>&correo=<%=cliente.getCorreo()%>" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este Empleado?');">Eliminar</a>
+    				<a href="cliente?opcion=modificar&id=<%=cliente.getId_Cliente()%>" class="btn btn-primary">Modificar</a>
     			</td>	
 			</tr>
 		
@@ -79,7 +80,7 @@ if (esBusqueda == null) esBusqueda = false; // Fallback por seguridad
  		</tr>
 <%
   	} // Llave de cierre de else if
-	else if (listaEmpleados != null && listaEmpleados.isEmpty()) {
+	else if (listaClientes != null && listaClientes.isEmpty()) {
 %>
 		<tr>
             <td colspan="8" class="text-center text-warning">No se encuentran empleado registrados</td>

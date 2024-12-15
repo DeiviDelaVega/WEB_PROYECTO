@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class ServletInicioEmpleado
+ * Servlet implementation class ReservaMostrarCliente
  */
-@WebServlet("/InicioEmpleado")
-public class ServletInicioEmpleado extends HttpServlet {
+@WebServlet("/ReservaMostrarCliente")
+public class ReservaMostrarCliente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ServletInicioEmpleado() {
+    public ReservaMostrarCliente() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,7 +36,8 @@ public class ServletInicioEmpleado extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("departamento1");
-		rd.forward(request,response);	}
+		RequestDispatcher rd = request.getRequestDispatcher("ReservaServlet");
+		rd.forward(request,response);	
+	}
 
 }

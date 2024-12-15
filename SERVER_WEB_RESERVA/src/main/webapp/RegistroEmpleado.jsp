@@ -12,11 +12,11 @@
 
 <form action="Empleado" method="post">
 
-         <label for="rol">Rol:</label>
-         <select id="rol" name="rol">
-         <option value="1">Creador de Reservas</option>
-         <option value="2">Registro de Check-In y Check-Out</option>
-        </select><br><br>
+    <input type="hidden" name="opcion" value="registrar">
+
+
+
+       <br><br>
         
          <label for="nombre">Nombre:</label><br>
           <input type="text" id="nombre" name="nombre"><br><br>
@@ -39,6 +39,7 @@
           <input type="password" id="clave" name="clave"><br><br>
           
          <button type="submit">Registrar</button>
+         <input type="button" value="Listado" onclick="window.location.href='listadoEmpleado.jsp'">
 </form>
 
 

@@ -1,6 +1,7 @@
 package controlador;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -9,9 +10,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import data.DAOCliente;
 import data.DAODepartamento;
+import data.DAOReserva;
+import modelo.Cliente;
 import modelo.Departamento;
+import modelo.Reserva;
 
 /**
  * Servlet implementation class departamento1
@@ -46,7 +52,12 @@ public class departamento1 extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("ReservaHabitaciones.jsp");
 			// Ejecutar despachador
 			rd.forward(request, response);
-	    } else {
+	    } 
+		
+		
+		
+		
+		else {
 	    	DAODepartamento daoDepartamento = new DAODepartamento();
 		    List<Departamento> listaDepartamentos = daoDepartamento.buscarPorId(-1); // Búsqueda sin filtro
 		    request.setAttribute("listaDeDepartamentos", listaDepartamentos);
@@ -57,6 +68,8 @@ public class departamento1 extends HttpServlet {
 			// Ejecutar despachador
 			rd.forward(request, response);
 	    }
+		
+	
 		
 	}
 

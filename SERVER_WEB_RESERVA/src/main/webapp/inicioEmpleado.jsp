@@ -12,7 +12,7 @@
 <body>
 <h1>HOLA EMPLEADO</h1>
 
-<form action="InicioEmpleado" method="post">
+<form action="Empleado" method="post">
 <input type="submit" value="Listado" >
 
 </form>

@@ -4,26 +4,30 @@ import java.sql.Date;
 
 public class Empleado {
 private int id_Empleado;
- private int  id_Asignacion;
  private String nombre;
  private String apellido;
  private  int nro_Documento;
- private   String Telefono;
+ private  String Telefono;
  private String Correo_Electronico;
  private String clave;
- private Date fecha_Contratación;
+ private Date fecha_Contratacion;
  ;
  
 
 public Empleado() {
+	        id_Empleado = 0;
+	    	nombre = "";
+	    	apellido = "";
+	    	nro_Documento = 0;
+	    	Telefono = "";
+	    	Correo_Electronico = "";
+	    	clave = "";
+	    	fecha_Contratacion = new Date(0);
+		}
 
-}
-
-
-public Empleado(int id_Asignacion, String nombre, String apellido, int nro_Documento, String telefono,String clave,
+public Empleado( String nombre, String apellido, int nro_Documento, String telefono,String clave,
 		String correo_Electronico) {
 	super();
-	this.id_Asignacion = id_Asignacion;
 	this.nombre = nombre;
 	this.apellido = apellido;
 	this.nro_Documento = nro_Documento;
@@ -33,28 +37,27 @@ public Empleado(int id_Asignacion, String nombre, String apellido, int nro_Docum
 }
 
 
-public Empleado(int id_Empleado, int id_Asignacion, String nombre, String apellido, int nro_Documento, String telefono,
+public Empleado(int id_Empleado, String nombre, String apellido, int nro_Documento, String telefono,
 		String correo_Electronico,String clave) {
 	super();
 	this.id_Empleado = id_Empleado;
-	this.id_Asignacion = id_Asignacion;
 	this.nombre = nombre;
 	this.apellido = apellido;
 	this.nro_Documento = nro_Documento;
-	Telefono = telefono;
-	Correo_Electronico = correo_Electronico;
+	this.Telefono = telefono;
+	this.Correo_Electronico = correo_Electronico;
 	this.clave=clave;
 
 }
 
 
-public Date getFecha_Contratación() {
-	return fecha_Contratación;
+public Date getFecha_Contratacion() {
+	return fecha_Contratacion;
 }
 
 
-public void setFecha_Contratación(Date fecha_Contratación) {
-	this.fecha_Contratación = fecha_Contratación;
+public void setFecha_Contratacion(Date fecha_Contratación) {
+	this.fecha_Contratacion = fecha_Contratación;
 }
 
 
@@ -75,16 +78,6 @@ public int getId_Empleado() {
 
 public void setId_Empleado(int id_Empleado) {
 	this.id_Empleado = id_Empleado;
-}
-
-
-public int getId_Asignacion() {
-	return id_Asignacion;
-}
-
-
-public void setId_Asignacion(int id_Asignacion) {
-	this.id_Asignacion = id_Asignacion;
 }
 
 

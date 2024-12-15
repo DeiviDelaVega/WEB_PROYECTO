@@ -12,6 +12,9 @@
 
 
 <form action="cliente" method="post">
+
+ <input type="hidden" name="opcion" value="registrar">
+ 
           <label for="nombre">Nombre:</label><br>
           <input type="text" id="nombre" name="nombre"><br><br>
 
@@ -35,7 +38,7 @@
           <input type="password" id="clave" name="clave"><br><br>
           
 
-         <button type="submit">Registrar</button>
+         <button type="submit" value="registrar">Registrar</button>
          
          </form>
          

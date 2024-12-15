@@ -35,7 +35,7 @@ height: auto;
                         <a class="nav-link" href="ReservaHabitaciones.jsp" onclick="document.getElementById('listadoForm').submit(); return false;">Reserva Habitaciones</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Tus reservas</a>
+                          <a class="nav-link" href="misReservas.jsp" onclick="document.getElementById('listadoMisReservas').submit(); return false;">Tus reservas</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="login.jsp">Salir</a>
@@ -48,6 +48,11 @@ height: auto;
     <!-- Formulario oculto -->
     <form id="listadoForm" action="InicioCliente" method="post" style="display: none;">
         <input type="submit" value="Reserva Habitaciones">
+    </form>
+    
+    
+<form id="listadoMisReservas" action="ReservaMostrarCliente" method="post" style="display: none;">
+        <input type="submit" value="MisReservas">
     </form>
 
     <!-- Contenido principal -->

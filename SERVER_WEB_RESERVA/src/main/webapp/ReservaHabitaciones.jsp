@@ -79,8 +79,6 @@
                     <div class="col-md-12">
                         <div class="department-card">
                             <img src="<%= departamento.getImagenDepartamento() %>" alt="Imagen Departamento" />
-                            <img src="<%= departamento.getImagenDepartamento() %>" alt="Imagen Departamento" />
-                            <img src="<%= departamento.getImagenDepartamento() %>" alt="Imagen Departamento" />
                             <div class="department-details">
                                 <h5><%= departamento.getNombre() %></h5>
                                 <p><strong>Capacidad:</strong> <%= departamento.getCapacidad() %></p>
@@ -89,7 +87,12 @@
                                 <p><strong>Servicios incluidos:</strong> <%= departamento.getServiciosIncluidos() %></p>
                                 <p><strong>Disponibilidad:</strong> <%= departamento.getDisponibilidad() %></p>
                                 <p class="price">S/. <%= departamento.getPrecioPorNoche() %> por noche</p>
-                                <button class="btn btn-success reserve-button">Reservar</button>
+                                <form action="ReservaServlet" method="post">
+                                    <input type="hidden" name="departamentoId" value="<%= departamento.getIdDepartamento() %>">
+                                    <input type="submit" value="Reservar" class="btn btn-success">
+                                     <input href="ReservaServlet?opcion=irConfirmar&id=<%=departamento.getIdDepartamento()%>"   type="hidden" name="opcion" value="irConfirmar">
+                                    
+                                </form>
                             </div>
                         </div>
                     </div>

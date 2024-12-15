@@ -1,3 +1,4 @@
+<%@page import="modelo.Reserva"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
    <!-- Importar clases en JSP -->
@@ -7,17 +8,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Lista de Departamentos</title>
+<title>Lista de Reservas</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-  	<h2>Lista de Departamentos</h2>
-	<hr>
-	<input type="button" value="Agregar departamento" onclick="window.location.href='RegistrarDepartamento.jsp'">
-	<hr>
-	<form action="departamento" method="post">
+  	<h2>Lista de Reservas</h2>
+
+	<form action="ReservaServlet" method="post">
 		<!-- Campo oculto que pasa la opción 'buscar' al servlet -->
-        <input type="hidden" name="opcion" value="buscarDepartamento">
+        <input type="hidden" name="opcion" value="buscarReservas">
 		<div class="d-flex justify-content-center">
 			<label for="IdBuscar">ID:</label>
 			<input type="number" id="IdBuscar" name="txtIdBuscar" class="w-50 form-control" placeholder="Ingrese el ID del departamento a buscar" min="1">
@@ -28,42 +27,45 @@
 <%
 @SuppressWarnings("unchecked") // Ignorar advertencia de conversión explicita (es opcional)
 // Obtener la lista de departamentos que se pasó desde el Servlet
-List<Departamento> listaDepartamentos = (List<Departamento>) request.getAttribute("listaDeDepartamentos");
+List<Reserva> listaReservas = (List<Reserva>) request.getAttribute("listaReservas");
 Boolean esBusqueda = (Boolean) request.getAttribute("esBusqueda");
 if (esBusqueda == null) esBusqueda = false; // Fallback por seguridad
 %>
 	<table class = "table table-bordered">
 		<thead>
 			<tr>
-				<th>ID</th>
-				<th>Nombre</th>
-				<th>Disponibilidad</th>
-				<th>Precio por noche</th>
+				<th>ID Solicitud</th>
+				<th>ID Cliente</th>
+				<th>ID Departamento</th>
+				<th>Fecha inicio</th>
+				<th>Fecha fin</th>
+				<th>Metodo pago</th>
+				<th>Monto total</th>
+				<th>Estado reserva</th>
 				<th>Accion</th>
-				<th>Mantenimiento</th>
-				<th>Imagen:</th>
 			</tr>
 		</thead>
 		<tbody>
 <%
 	//Verificar si la lista de departamentos: no es null y no está vacía
-	if(listaDepartamentos != null && !listaDepartamentos.isEmpty()) {
+	if(listaReservas != null && !listaReservas.isEmpty()) {
 	// Recorrer la lista de departamentos y mostrar cada uno en una fila
-		for(Departamento departamento : listaDepartamentos) {
+		for(Reserva reserva : listaReservas) {
 %>
 			<tr>
-				<td><%=departamento.getIdDepartamento()%></td>
-				<td><%=departamento.getNombre()%></td>
-				<td><%=departamento.getDisponibilidad()%></td>
-				<td><%=departamento.getPrecioPorNoche()%></td>
+				<td><%=reserva.getIdSolicitud()%></td>
+				<td><%=reserva.getIdCliente()%></td>
+				<td><%=reserva.getIdDepartamento()%></td>
+				<td><%=reserva.getFechaInicioReserva()%></td>
+				<td><%=reserva.getFechaFinReserva()%></td>
+				<td><%=reserva.getMetodoPago()%></td>
+				<td><%=reserva.getMontoTotal()%></td>
+				<td><%=reserva.getEstadoReserva()%></td>
 				<td>
-                   <img src="<%= departamento.getImagenDepartamento() %>" alt="Imagen Departamento" style="width: 100px; height: auto;" />
-               </td>
-				<td> <a href="departamento?opcion=detalle&idDepartamento=<%=departamento.getIdDepartamento()%>" class="btn btn-success">Ver detalle</a> </td>
-				<td>
-        			<a href="departamento?opcion=eliminar&id=<%=departamento.getIdDepartamento()%>" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este departamento?');">Eliminar</a>
-    				<a href="departamento?opcion=modificar&id=<%=departamento.getIdDepartamento()%>" class="btn btn-primary">Modificar estado</a>
-    			</td>	
+		           <a href="ReservaServlet?opcion=editarEstado&id=<%=reserva.getIdSolicitud()%>" class="btn btn-primary">Modificar</a>
+				
+				</td>
+				
 			</tr>
 <%		} // Llave de cierre del bucle for%>
 <%	} // Llave de cierre de la estructura if
@@ -78,7 +80,7 @@ if (esBusqueda == null) esBusqueda = false; // Fallback por seguridad
  		</tr>
 <%
   	} // Llave de cierre de else if
-	else if (listaDepartamentos != null && listaDepartamentos.isEmpty()) {
+	else if (listaReservas != null && listaReservas.isEmpty()) {
 %>
 		<tr>
             <td colspan="6" class="text-center text-warning">No se encuentran departamentos registrados</td>
