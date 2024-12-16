@@ -14,10 +14,10 @@ public class DataBase {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			
 
-			
 			String conexion = "jdbc:mysql://localhost:3306/DB_Reserva3";
 			String usuario = "root";
-			String contrasena = "Armyxbts1$";
+			String contrasena = "Madeley29.";
+
 			
 			con = DriverManager.getConnection(conexion, usuario, contrasena);
 			

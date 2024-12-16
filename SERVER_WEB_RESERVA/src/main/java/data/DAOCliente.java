@@ -1,5 +1,6 @@
 package data;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,8 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import modelo.Cliente;
-import modelo.Departamento;
-import modelo.Empleado;
+import modelo.ReporteCliente;
 import modelo.Usuario;
 
 public class DAOCliente {
@@ -140,7 +140,7 @@ public class DAOCliente {
 			ps.setString(5, cliente.getTelefono());
 			ps.setString(6, cliente.getCorreo());
           
-			ps.setInt(6, cliente.getId_Cliente());
+			ps.setInt(7, cliente.getId_Cliente());
 			
 		
 			System.out.print(correoAnterior);
@@ -159,7 +159,7 @@ public class DAOCliente {
 		return estadoOperacion;
 	}
 
-	public Cliente obtenerPorId(int id) throws SQLException {
+	public Cliente obtenerPorId(int id)  {
 		Cliente cliente = null; // Inicializa el objeto departamento
 		String sql = "SELECT * FROM Cliente WHERE ID_Cliente = ?"; // Consulta SQL
 		// Obtiene la conexión a la base de datos
@@ -186,11 +186,7 @@ public class DAOCliente {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw e; // Re-lanza la excepción para que sea manejada por el servlet
-		} finally {
-			if (con != null) {
-				con.close(); // Cierra la conexión
-			}
+			
 		}
 		return cliente; // Devuelve el objeto departamento o null si no se encuentra
 	}
@@ -230,6 +226,27 @@ public class DAOCliente {
 		}
 		return cliente; // Devuelve el objeto departamento o null si no se encuentra
 	}
+	
+	public List<ReporteCliente> ObtenerClientesConMasReservas() {
+		String sql = "{Call ObtenerClientesConMasReservas()}";
+				// Declarar la lista de Departamento
+		List<ReporteCliente> listaReporteCliente = new ArrayList<>();
+		try {
+			// Preparar la instruccion SQL:
+			CallableStatement cstmt = con.prepareCall(sql);
+	        
+			//ResultSet OBTIENE EL RESULTADO DEL PROCEDIMIENTO
+			ResultSet rs = cstmt.executeQuery();
+			while (rs.next()) {
+				listaReporteCliente.add(new ReporteCliente(rs.getInt("ID_Cliente"),rs.getString("Nombre"), rs.getString("Apellido"),
+						rs.getInt("Total_Reservas")));
+			}
+			con.close();
 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return listaReporteCliente;
+	}
 
 }
