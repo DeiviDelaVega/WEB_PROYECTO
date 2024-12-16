@@ -39,9 +39,9 @@ if (esBusqueda == null) esBusqueda = false; // Fallback por seguridad
 				<th>Nombre</th>
 				<th>Disponibilidad</th>
 				<th>Precio por noche</th>
+				<th>Imagen</th>
 				<th>Accion</th>
 				<th>Mantenimiento</th>
-				<th>Imagen:</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -62,7 +62,7 @@ if (esBusqueda == null) esBusqueda = false; // Fallback por seguridad
 				<td> <a href="departamento?opcion=detalle&idDepartamento=<%=departamento.getIdDepartamento()%>" class="btn btn-success">Ver detalle</a> </td>
 				<td>
         			<a href="departamento?opcion=eliminar&id=<%=departamento.getIdDepartamento()%>" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este departamento?');">Eliminar</a>
-    				<a href="departamento?opcion=modificar&id=<%=departamento.getIdDepartamento()%>" class="btn btn-primary">Modificar estado</a>
+    				<a href="departamento?opcion=modificar&id=<%=departamento.getIdDepartamento()%>" class="btn btn-primary">Modificar</a>
     			</td>	
 			</tr>
 <%		} // Llave de cierre del bucle for%>
