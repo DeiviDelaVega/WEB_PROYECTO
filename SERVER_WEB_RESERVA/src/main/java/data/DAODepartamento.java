@@ -233,7 +233,7 @@ public class DAODepartamento {
 						rs.getInt("ID_Departamento"), rs.getString("Nombre"),
 						rs.getInt("Capacidad"), rs.getInt("Número_Habitaciones"), rs.getString("Descripción"),
 						rs.getString("Servicios_Incluidos"), rs.getString("Disponibilidad"),
-						rs.getDouble("Precio_Por_Noche"), rs.getString("Imagen_Habitacion"));
+						rs.getDouble("Precio_Por_Noche"), rs.getString("Imagen_Habitacion"),rs.getInt("vecesReservado"));
 			}
 			cnx.close();
 		} catch (SQLException e) {
@@ -292,5 +292,32 @@ public class DAODepartamento {
 			}
 		}
 	}
+	
+	public List<Departamento> obtenerReporteDepartamentosReservados() {
+        List<Departamento> lista = new ArrayList<>();
+        String sql = "SELECT d.ID_Departamento, d.Nombre, COUNT(r.ID_Solicitud) AS VecesReservado " +
+                "FROM Departamento d " +
+                "LEFT JOIN Reserva r ON d.ID_Departamento = r.ID_Departamento " +
+                "GROUP BY d.ID_Departamento, d.Nombre " +
+                "ORDER BY VecesReservado DESC;";
+
+        try (Connection con = DataBase.getConnexion();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                int idDepartamento = rs.getInt("ID_Departamento");
+                String nombre = rs.getString("Nombre");
+                int vecesReservado = rs.getInt("VecesReservado");
+
+                Departamento departamento = new Departamento(idDepartamento, nombre, vecesReservado, vecesReservado, nombre, nombre, nombre, vecesReservado, nombre, vecesReservado);
+                lista.add(departamento);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
 
 }

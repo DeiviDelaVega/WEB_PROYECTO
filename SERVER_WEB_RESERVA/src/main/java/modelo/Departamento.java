@@ -10,6 +10,7 @@ public class Departamento{
     private String disponibilidad;
     private double precioPorNoche;
     private String imagenDepartamento;
+    private int vecesReservado;
     
     public Departamento() {
     	idDepartamento = 0;
@@ -20,10 +21,11 @@ public class Departamento{
 		serviciosIncluidos = "";
 		disponibilidad = "";
 		precioPorNoche = 0.0;
+		vecesReservado = 0;
 	}
 
 	public Departamento(int idDepartamento, String nombre, int capacidad, int nroHabitaciones, String descripcion,
-			String serviciosIncluidos, String disponibilidad, double precioPorNoche, String imagenDepartamento) {
+			String serviciosIncluidos, String disponibilidad, double precioPorNoche, String imagenDepartamento, int vecesReservado) {
 		super();
 		this.idDepartamento = idDepartamento;
 		this.nombre = nombre;
@@ -34,6 +36,7 @@ public class Departamento{
 		this.disponibilidad = disponibilidad;
 		this.precioPorNoche = precioPorNoche;
 		this.imagenDepartamento = imagenDepartamento;
+		this.vecesReservado = vecesReservado;
 	}
 
 	public int getIdDepartamento() {
@@ -108,5 +111,11 @@ public class Departamento{
 		this.imagenDepartamento = imagenDepartamento;
 	}
 
-	
+	public int getVecesReservado() {
+		return vecesReservado;
+	}
+
+	public void setVecesReservado(int vecesReservado) {
+		this.vecesReservado = vecesReservado;
+	}
 }
