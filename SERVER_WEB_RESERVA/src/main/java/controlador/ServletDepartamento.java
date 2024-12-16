@@ -16,6 +16,7 @@ import javax.servlet.http.Part;
 
 import data.DAODepartamento;
 import modelo.Departamento;
+import modelo.ReporteDepartamento;
 
 /**
  * Servlet implementation class ServletDepartamento
@@ -29,7 +30,8 @@ public class ServletDepartamento extends HttpServlet {
 		super();
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		// Buscar todos los departamentos al cargar la página
 
@@ -92,17 +94,20 @@ public class ServletDepartamento extends HttpServlet {
 			request.setAttribute("eDepartamento", depaBuscado);
 
 			request.getRequestDispatcher("DetalleDepartamento.jsp").forward(request, response);
-		}
-
-		// Departamentos mas veces reservados
-		else if (opcion != null && opcion.equals("reporteDepa")) {
-			DAODepartamento dao = new DAODepartamento();
-			List<Departamento> reporte = dao.obtenerReporteDepartamentosReservados();
-			request.setAttribute("reporteDepartamentos", reporte);
-			request.getRequestDispatcher("ReporteDepartamentos.jsp").forward(request, response);
-		}
-
-		else {
+		} 
+		
+		// Reporte de los Departamentos mas reservados
+		else if (opcion != null && opcion.equals("listarReporteDepartamento")) {
+			DAODepartamento daoDepartamento = new DAODepartamento();
+			List<ReporteDepartamento> listaReporteDepartamentos = daoDepartamento.ObtenerDepartamentosConMasReservas();
+			request.setAttribute("listaDeReporte", listaReporteDepartamentos);
+			// Marcar que no se realizó una búsqueda específica
+			request.setAttribute("esBusqueda", false);
+			// Crear el despachador con la ruta de la página
+			RequestDispatcher rd = request.getRequestDispatcher("ReporteDepartarmento.jsp");
+			// Ejecutar despachador
+			rd.forward(request, response);
+		} else {
 			DAODepartamento daoDepartamento = new DAODepartamento();
 			List<Departamento> listaDepartamentos = daoDepartamento.buscarPorId(-1); // Búsqueda sin filtro
 			request.setAttribute("listaDeDepartamentos", listaDepartamentos);
@@ -115,7 +120,8 @@ public class ServletDepartamento extends HttpServlet {
 		}
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		String opcion = request.getParameter("opcion");
 
@@ -213,7 +219,6 @@ public class ServletDepartamento extends HttpServlet {
 				request.setAttribute("errorMessage", "Error al modificar el departamento.");
 			}
 		} else {
-
 			// Obtener el parámetro de búsqueda del ID del departamento
 			String idBuscarStr = request.getParameter("txtIdBuscar");
 			boolean esBusqueda = true; // Indica que se realizó una búsqueda específica

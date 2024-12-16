@@ -15,7 +15,7 @@ public class DataBase {
 			
 
 			
-			String conexion = "jdbc:mysql://localhost:3306/DB_Reserva2";
+			String conexion = "jdbc:mysql://localhost:3306/DB_Reserva3";
 			String usuario = "root";
 			String contrasena = "Armyxbts1$";
 			

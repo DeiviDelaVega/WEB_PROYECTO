@@ -7,23 +7,19 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletResponse;
-
-
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-
-
 import modelo.Departamento;
+import modelo.ReporteDepartamento;
 
 public class DAODepartamento {
 	private Connection connection;
@@ -50,7 +46,7 @@ public class DAODepartamento {
 			ps.setString(6, disponibilidad);
 			ps.setDouble(7, precioPorNoche);
 			ps.setString(8, imageUrl);
-			return ps.executeUpdate(); 
+			return ps.executeUpdate();
 		}
 	}
 
@@ -72,11 +68,6 @@ public class DAODepartamento {
 		tempFile.delete(); // Eliminar archivo temporal
 		return uploadResult.get("secure_url").toString();
 	}
-	
-	
-	
-	
-	
 
 	// Buscar Departamentos
 	public List<Departamento> buscarPorId(int idBuscar) {
@@ -229,11 +220,10 @@ public class DAODepartamento {
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
-				depaBuscado = new Departamento(
-						rs.getInt("ID_Departamento"), rs.getString("Nombre"),
+				depaBuscado = new Departamento(rs.getInt("ID_Departamento"), rs.getString("Nombre"),
 						rs.getInt("Capacidad"), rs.getInt("Número_Habitaciones"), rs.getString("Descripción"),
 						rs.getString("Servicios_Incluidos"), rs.getString("Disponibilidad"),
-						rs.getDouble("Precio_Por_Noche"), rs.getString("Imagen_Habitacion"),rs.getInt("vecesReservado"));
+						rs.getDouble("Precio_Por_Noche"), rs.getString("Imagen_Habitacion"));
 			}
 			cnx.close();
 		} catch (SQLException e) {
@@ -292,32 +282,25 @@ public class DAODepartamento {
 			}
 		}
 	}
-	
-	public List<Departamento> obtenerReporteDepartamentosReservados() {
-        List<Departamento> lista = new ArrayList<>();
-        String sql = "SELECT d.ID_Departamento, d.Nombre, COUNT(r.ID_Solicitud) AS VecesReservado " +
-                "FROM Departamento d " +
-                "LEFT JOIN Reserva r ON d.ID_Departamento = r.ID_Departamento " +
-                "GROUP BY d.ID_Departamento, d.Nombre " +
-                "ORDER BY VecesReservado DESC;";
 
-        try (Connection con = DataBase.getConnexion();
-             PreparedStatement ps = con.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-
-            while (rs.next()) {
-                int idDepartamento = rs.getInt("ID_Departamento");
-                String nombre = rs.getString("Nombre");
-                int vecesReservado = rs.getInt("VecesReservado");
-
-                Departamento departamento = new Departamento(idDepartamento, nombre, vecesReservado, vecesReservado, nombre, nombre, nombre, vecesReservado, nombre, vecesReservado);
-                lista.add(departamento);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return lista;
-    }
-
+	public List<ReporteDepartamento> ObtenerDepartamentosConMasReservas() {
+		Connection con = DataBase.getConnexion();
+		String sql = "{Call ObtenerDepartamentosConMasReservas()}";
+		// Declarar la lista de Departamento
+		List<ReporteDepartamento> listaReporteDepartamentos = new ArrayList<>();
+		try {
+			// Preparar la instruccion SQL:
+			CallableStatement cstmt = con.prepareCall(sql);
+			// ResultSet OBTIENE EL RESULTADO DEL PROCEDIMIENTO
+			ResultSet rs = cstmt.executeQuery();
+			while (rs.next()) {
+				listaReporteDepartamentos.add(new ReporteDepartamento(rs.getInt("ID_Departamento"), rs.getString("Nombre"),
+						rs.getInt("Total_Reservas")));
+			}
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return listaReporteDepartamentos;
+	}
 }
