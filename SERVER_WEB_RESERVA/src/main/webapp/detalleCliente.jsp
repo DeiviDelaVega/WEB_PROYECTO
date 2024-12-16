@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h2>Detalle Empleado</h2>
+	<h2>Detalle Cliente</h2>
 	<div class="container">
 	<div class="form-container">
         <form action="cliente" method="post">
@@ -43,7 +43,7 @@
  
         <div class="detail-row">
             <label>Correo:</label>
-            <div>${ eCliente.getCorreo }</div>
+            <div>${ eCliente.getCorreo() }</div>
         </div>
         
         <div class="detail-row">

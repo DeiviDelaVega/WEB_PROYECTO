@@ -15,6 +15,7 @@ import data.DAOCliente;
 import data.DAOEmpleado;
 import modelo.Cliente;
 import modelo.Empleado;
+import modelo.ReporteCliente;
 
 /**
  * Servlet implementation class servletCliente
@@ -61,14 +62,10 @@ public class servletCliente extends HttpServlet {
 			DAOCliente daocliente = new DAOCliente();
 			// Obtiene los datos del departamento por su ID
 			Cliente Cliente;
-			try {
 				Cliente = daocliente.obtenerPorId(idCliente);
 				
 				request.setAttribute("cliente", Cliente);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
 	
 			// Redirige al JSP del formulario de modificación
 			RequestDispatcher dispatcher = request.getRequestDispatcher("modificarCliente.jsp");
@@ -78,15 +75,12 @@ public class servletCliente extends HttpServlet {
 			int clienteID = Integer.parseInt(request.getParameter("idCliente"));
 			DAOCliente daocliente = new DAOCliente();
 			Cliente clienteBuscado;
-			try {
 				clienteBuscado = daocliente.obtenerPorId(clienteID);
 				request.setAttribute("eCliente", clienteBuscado);
 
 			    request.getRequestDispatcher("detalleCliente.jsp").forward(request, response);
-			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
 			
 		} else if (opcion != null && opcion.equals("buscar")) {
 
@@ -103,6 +97,18 @@ public class servletCliente extends HttpServlet {
 			// Ejecutar despachador
 			rd.forward(request, response);
 
+		}else if(opcion != null && opcion.equals("listarReporteCliente")) {
+			DAOCliente daocliente = new DAOCliente();
+			List<ReporteCliente> listaReporteClientes = daocliente.ObtenerClientesConMasReservas();
+			request.setAttribute("listaDeReporte", listaReporteClientes);
+
+			// Marcar que no se realizó una búsqueda específica
+			request.setAttribute("esBusqueda", false);
+
+			// Crear el despachador con la ruta de la página
+			RequestDispatcher rd = request.getRequestDispatcher("reporteClienteMasReservan.jsp");
+			// Ejecutar despachador
+			rd.forward(request, response);
 		}
 		
 	}

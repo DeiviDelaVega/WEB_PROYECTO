@@ -10,9 +10,9 @@ public class Cliente {
 	private String telefono;
     private String correo;
     private String clave;
+    
 	public Cliente(int id_Cliente, String nombre, String apellido, int nro_Documento, String direccion, String telefono,
 			String correo, String clave) {
-		super();
 		this.id_Cliente = id_Cliente;
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -24,7 +24,6 @@ public class Cliente {
 	}
 	public Cliente(String nombre, String apellido, int nro_Documento, String direccion, String telefono, String correo,
 			String clave) {
-		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.nro_Documento = nro_Documento;
