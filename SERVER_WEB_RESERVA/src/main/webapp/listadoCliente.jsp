@@ -116,12 +116,11 @@
 			</div>
 		</div>
 	</nav>
-	<input class="botoncito" type="button" value="Agregar Cliente"
-		onclick="window.location.href='RegistroCliente.jsp'">
+	
 	<form action="cliente" method="post">
 		<input type="hidden" name="opcion" value="buscar">
 
-		<div class="d-flex justify-content-center">
+		<div class="d-flex justify-content-center mt-4" >
 			<label for="IdBuscar">ID:</label> <input type="number" id="IdBuscar"
 				name="txtIdBuscar" class="w-50 form-control"
 				placeholder="Ingrese el ID del empleado a buscar" min="1"> <input

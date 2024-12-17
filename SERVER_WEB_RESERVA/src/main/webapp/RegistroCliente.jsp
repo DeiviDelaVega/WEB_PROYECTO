@@ -48,8 +48,7 @@
     </style>
 </head>
 <body>
- <% HttpSession sesion= request.getSession(); 
-				String rolUsuario = (String)sesion.getAttribute("rol");	%>	
+
 <div class="form-container">
     <h2>Registrar Cliente</h2>
      
@@ -98,14 +97,11 @@
             <input type="password" class="form-control" id="clave" name="clave" required>
         </div>
         
-       <%  if(rolUsuario !=null || !rolUsuario.equals("")){%>
-    	   <button type="submit" class="btn btn-primary" >Registrar</button>
+                   <button type="submit" class="btn btn-primary" >Registrar</button>
+           
            <button class="btn btn-secundary" onclick="window.location.href='cliente?opcion=buscar'">Cancelar</button>
                  
-        <%}else{%>
-        <button type="submit" class="btn btn-primary" >Registrar</button>
-           <button class="btn btn-secundary" onclick="window.location.href='login.jsp'">Cancelar</button>
-                  <%} %>
+       
           
     </form>
 

@@ -23,7 +23,7 @@
             <div class="card-body">
                 <form action="ReservaServlet" method="post">
                     <!-- Campo oculto que pasa la opción 'buscar' al servlet -->
-                    <input type="hidden" name="opcion" value="buscarReservas">
+                    <input type="hidden" name="opcion" value="buscarReservasCliente">
                     <div class="row justify-content-center">
                         <div class="col-md-6">
                             <div class="input-group">
@@ -44,7 +44,7 @@
         <%
         @SuppressWarnings("unchecked") // Ignorar advertencia de conversión explicita (es opcional)
         // Obtener la lista de reservas que se pasó desde el Servlet
-        List<Reserva> listaReservas = (List<Reserva>) request.getAttribute("reservas");
+        List<Reserva> listaReservas = (List<Reserva>) request.getAttribute("listaReservas");
         Boolean esBusqueda = (Boolean) request.getAttribute("esBusqueda");
         if (esBusqueda == null) esBusqueda = false; // Fallback por seguridad
         %>

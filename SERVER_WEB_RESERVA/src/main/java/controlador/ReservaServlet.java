@@ -93,7 +93,37 @@ public class ReservaServlet extends HttpServlet {
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
+
+				}  else if (opcion != null && opcion.equals("buscarReservasCliente")) {
+					String idBuscarStr = request.getParameter("txtIdBuscar");
+					boolean esBusqueda = true; // Indica que se realizó una búsqueda específica
+					List<Reserva> listaReserva;
+					// Instanciar DAODepartamento
+					DAOReserva daoReserva= new DAOReserva();
+					// Verificar si el parámetro está vacío
+					if (idBuscarStr == null || idBuscarStr.trim().isEmpty()) {
+						// Si el ID está vacío, buscar todos los departamentos
+						listaReserva = daoReserva.buscarPorId(-1); // Búsqueda sin filtro
+						esBusqueda = false; // No es una búsqueda específica
+					} else {
+						// Convertir el parámetro a un entero y buscar por ID:
+						// Intentar convertir el parámetro a un número entero
+						int idBuscar = Integer.parseInt(idBuscarStr);
+						// Ejecutar método de búsqueda y recoger resultados
+						listaReserva = daoReserva.buscarPorId(idBuscar);
+					}
+					// Enviar la lista de departamentos a la página correspondiente
+					request.setAttribute("listaReservas", listaReserva);
+					// Indicar si se trata de una búsqueda específica o no
+					request.setAttribute("esBusqueda", esBusqueda);
+					// Redirigir a la JSP:
+					// Crear el despachador con la ruta de la página
+					RequestDispatcher rd = request.getRequestDispatcher("misReservas.jsp");
+					// Ejecutar despachador
+					rd.forward(request, response);
+					
 				}
+
 
 		else {
 			// Obtener la sesión del usuario
@@ -261,7 +291,38 @@ public class ReservaServlet extends HttpServlet {
 			// Ejecutar despachador
 			rd.forward(request, response);
 			
+		}  else if (opcion != null && opcion.equals("buscarReservasCliente")) {
+			String idBuscarStr = request.getParameter("txtIdBuscar");
+			boolean esBusqueda = true; // Indica que se realizó una búsqueda específica
+			List<Reserva> listaReserva;
+			// Instanciar DAODepartamento
+			DAOReserva daoReserva= new DAOReserva();
+			// Verificar si el parámetro está vacío
+			if (idBuscarStr == null || idBuscarStr.trim().isEmpty()) {
+				// Si el ID está vacío, buscar todos los departamentos
+				listaReserva = daoReserva.buscarPorId(-1); // Búsqueda sin filtro
+				esBusqueda = false; // No es una búsqueda específica
+			} else {
+				// Convertir el parámetro a un entero y buscar por ID:
+				// Intentar convertir el parámetro a un número entero
+				int idBuscar = Integer.parseInt(idBuscarStr);
+				// Ejecutar método de búsqueda y recoger resultados
+				listaReserva = daoReserva.buscarPorId(idBuscar);
+			}
+			// Enviar la lista de departamentos a la página correspondiente
+			request.setAttribute("listaReservas", listaReserva);
+			// Indicar si se trata de una búsqueda específica o no
+			request.setAttribute("esBusqueda", esBusqueda);
+			// Redirigir a la JSP:
+			// Crear el despachador con la ruta de la página
+			RequestDispatcher rd = request.getRequestDispatcher("misReservas.jsp");
+			// Ejecutar despachador
+			rd.forward(request, response);
+			
 		}
+
+		
+		
 
 		else {
 

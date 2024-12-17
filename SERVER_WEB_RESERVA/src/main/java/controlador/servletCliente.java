@@ -143,20 +143,12 @@ public class servletCliente extends HttpServlet {
 
 
 				}else {
-					System.out.print(rolUsuario+"hola");
-					if(rolUsuario !=null || !rolUsuario.equals("")) {
-						
-						RequestDispatcher requestDispatcher = request.getRequestDispatcher("cliente?opcion=buscar");
-						requestDispatcher.forward(request, response);
-						
-					}else {
-						
 						RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
 						requestDispatcher.forward(request, response);
 						
 					
 
-				}}
+				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

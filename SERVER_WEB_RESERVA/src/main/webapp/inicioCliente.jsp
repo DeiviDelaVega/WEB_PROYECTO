@@ -35,7 +35,7 @@ height: auto;
                         <a class="nav-link" href="ReservaHabitaciones.jsp" onclick="document.getElementById('listadoForm').submit(); return false;">Reserva Habitaciones</a>
                     </li>
                     <li class="nav-item">
-                          <a class="nav-link" href="misReservas.jsp" onclick="document.getElementById('listadoMisReservas').submit(); return false;">Tus reservas</a>
+                          <a class="nav-link" href="ReservaServlet?opcion=buscarReservasCliente">Tus reservas</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="login.jsp">Salir</a>
