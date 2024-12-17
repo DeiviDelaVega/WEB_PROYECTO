@@ -104,7 +104,7 @@ public class ServletDepartamento extends HttpServlet {
 			// Marcar que no se realizó una búsqueda específica
 			request.setAttribute("esBusqueda", false);
 			// Crear el despachador con la ruta de la página
-			RequestDispatcher rd = request.getRequestDispatcher("ReporteDepartarmento.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("ReporteDepartamento.jsp");
 			// Ejecutar despachador
 			rd.forward(request, response);
 		} else {
@@ -194,7 +194,7 @@ public class ServletDepartamento extends HttpServlet {
 			// Enviar mensaje al JSP
 			request.setAttribute("mensaje", mensaje);
 
-			request.getRequestDispatcher("RegistrarDepartamento.jsp").forward(request, response);
+			request.getRequestDispatcher("departamento?opcion=buscarDepartamento").forward(request, response);
 		}
 
 		// Modificar datos de departamento
@@ -212,7 +212,7 @@ public class ServletDepartamento extends HttpServlet {
 
 			try {
 				departamentoDAO.modificar(departamento);
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("ListadoDepartamento.jsp");
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("departamento?opcion=buscarDepartamento");
 				requestDispatcher.forward(request, response);
 			} catch (SQLException e) {
 				e.printStackTrace();

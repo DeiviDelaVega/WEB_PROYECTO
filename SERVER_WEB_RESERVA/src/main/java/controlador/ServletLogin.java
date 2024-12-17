@@ -33,7 +33,21 @@ public class ServletLogin extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		
+		
+		String opcion = request.getParameter("opcion");
 
+		HttpSession sn = request.getSession();
+		if (opcion != null && opcion.equals("cerrarSesion")) {
+			
+			//setAttribute guardar en HttpSession
+			sn.setAttribute("usuario", "");
+			sn.setAttribute("correoUsuario", "");
+			sn.setAttribute("rol","");
+			response.sendRedirect("login.jsp");
+		}
+	
 	}
 
 	/**
@@ -52,16 +66,17 @@ public class ServletLogin extends HttpServlet {
 			
 			System.out.print("usuario"+usuario.getRol());
 			if (usuario != null) {
-				
+				//instancia HttpSession
 				HttpSession sn = request.getSession();
-				
+				//setAttribute guardar en HttpSession
 				sn.setAttribute("usuario", usuario);
 				sn.setAttribute("correoUsuario", usuario.getCorreo());
+				sn.setAttribute("rol",usuario.getRol());
 
 				switch (usuario.getRol()) {
 		
 				case "admin":
-					response.sendRedirect("RegistroEmpleado.jsp");
+					response.sendRedirect("inicioAdmin.jsp");
 					break;
 				case "empleado":
 					response.sendRedirect("inicioEmpleado.jsp");

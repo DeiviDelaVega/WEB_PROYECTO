@@ -1,10 +1,10 @@
-<%@page import="modelo.Departamento"%>
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -52,7 +52,7 @@
 	<!-- Barra de navegación -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="inicioEmpleado.jsp"><img alt=""
+			<a class="navbar-brand" href="inicioAdmin.jsp"><img alt=""
 				src="images/poloMonterrico.png" class="imagenlogo"></a>
 
 			<button class="navbar-toggler" type="button"
@@ -64,7 +64,9 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav ms-auto">
 					<li class="nav-item"><a class="nav-link active"
-						href="inicioEmpleado.jsp">Inicio</a></li>
+						href="inicioAdmin.jsp">Inicio</a></li>
+						<li class="nav-item"><a class="nav-link"
+						href="Empleado?opcion=buscar">Mant. Empleado</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="cliente?opcion=buscar">Mant. cliente</a></li>
 					<li class="nav-item"><a class="nav-link"
@@ -85,23 +87,11 @@
 		</div>
 	</nav>
 
-	<!-- Formulario oculto -->
-	<form id="listadoForm" action="InicioCliente" method="post"
-		style="display: none;">
-		<input type="submit" value="Reserva Habitaciones">
-	</form>
-
-
-	<form id="listadoMisReservas" action="ReservaMostrarCliente"
-		method="post" style="display: none;">
-		<input type="submit" value="MisReservas">
-	</form>
-
 	<!-- Contenido principal -->
 	<div class="container mt-5">
 		<div class="row justify-content-center">
 			<div class="col-md-8 text-center">
-				<h1 class="display-4">¡Bienvenido, Empleado!</h1>
+				<h1 class="display-4">¡Bienvenido, Admin!</h1>
 			</div>
 		</div>
 	</div>

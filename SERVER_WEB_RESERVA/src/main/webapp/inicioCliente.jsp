@@ -38,9 +38,6 @@ height: auto;
                           <a class="nav-link" href="misReservas.jsp" onclick="document.getElementById('listadoMisReservas').submit(); return false;">Tus reservas</a>
                     </li>
                     <li class="nav-item">
-                          <a class="nav-link" href="ReporteDepartamento.jsp">Reporte</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="login.jsp">Salir</a>
                     </li>
                 </ul>

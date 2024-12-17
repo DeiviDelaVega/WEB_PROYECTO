@@ -90,6 +90,29 @@ public class DAOReserva {
 	        // Retornar la lista de reservas
 	        return listaReservas;
 	    }
+	 
+		public boolean eliminar(int idReserva) throws SQLException {
+			String sql = null;
+			boolean estadoOperacion = false;
+            PreparedStatement ps;
+
+			try {
+				con.setAutoCommit(false);
+				sql = "DELETE FROM Reserva WHERE ID_Solicitud = ?";
+				ps = con.prepareStatement(sql);
+				ps.setInt(1, idReserva);
+
+				estadoOperacion = ps.executeUpdate() > 0;
+				con.commit();
+				con.close();
+				con.close();
+
+			} catch (SQLException e) {
+				con.rollback();
+				e.printStackTrace();
+			}
+			return estadoOperacion;
+		}
 	
 	 public boolean actualizarEstado(int idReserva, String nuevoEstado) {
 		    String sql = "UPDATE Reserva SET Estado_Reserva = ? WHERE ID_Solicitud = ?";

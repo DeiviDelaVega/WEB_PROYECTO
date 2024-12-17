@@ -14,7 +14,7 @@ public class DataBase {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			
 
-			String conexion = "jdbc:mysql://localhost:3306/DB_Reserva3";
+			String conexion = "jdbc:mysql://localhost:3306/DB_Reserva_AlojamientoTemporal";
 			String usuario = "root";
 			String contrasena = "Madeley29.";
 

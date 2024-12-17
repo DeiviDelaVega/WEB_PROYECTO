@@ -33,10 +33,6 @@ public class servletEmpleado extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 	
-		
-		
-		
-		
 
 		String opcion = request.getParameter("opcion");
 		
@@ -82,7 +78,7 @@ public class servletEmpleado extends HttpServlet {
 			// Buscar todos los departamentos al cargar la página
 			DAOEmpleado empleado = new DAOEmpleado();
 			List<Empleado> listaEmpleados = empleado.buscarPorId(-1); // Búsqueda sin filtro
-			request.setAttribute("listaDeEmpleados", listaEmpleados);
+			request.setAttribute("listadoEmpleados", listaEmpleados);
 
 			// Marcar que no se realizó una búsqueda específica
 			request.setAttribute("esBusqueda", false);
@@ -171,7 +167,7 @@ public class servletEmpleado extends HttpServlet {
 			try {
 				String correoAnterior = empleadoDAO.obtenerPorId(empleado.getId_Empleado()).getCorreo_Electronico();
 				empleadoDAO.modificar(empleado, correoAnterior);
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("listadoEmpleado.jsp");
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("Empleado?opcion=buscar");
 				requestDispatcher.forward(request, response);
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -209,13 +205,4 @@ public class servletEmpleado extends HttpServlet {
 		}
 
 	}
-
-	protected void doPut(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-	}
-
-	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-	}
-
 }

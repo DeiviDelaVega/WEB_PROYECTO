@@ -12,6 +12,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 	<style>
+	
 .imagenlogo {
 	width: 100px;
 	height: auto;
@@ -47,11 +48,16 @@
 
 </style>
 <body>
+	<% HttpSession sesion= request.getSession(); 
+				String rolUsuario = (String)sesion.getAttribute("rol");	%>	
 <!-- Barra de navegación -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="inicioEmpleado.jsp"><img alt=""
-				src="images/poloMonterrico.png" class="imagenlogo"></a>
+						<a class="navbar-brand" href="<%= "inicio" + rolUsuario.substring(0, 1).toUpperCase() + rolUsuario.substring(1) + ".jsp" %>">
+    <img alt="" src="images/poloMonterrico.png" class="imagenlogo">
+</a>
+
+
 
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -61,19 +67,31 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav ms-auto">
+					  <%
+						if(rolUsuario.equals("empleado")){
+						%>
+					<li class="nav-item"><a class="nav-link "
+						href="inicioEmpleado.jsp">Inicio</a></li>
+						  <%} %>
+			      <%
+						if(rolUsuario.equals("admin")){
+						%>
+						<li class="nav-item"><a class="nav-link "
+						href="inicioAdmin.jsp">Inicio</a></li>
+						<li class="nav-item"><a class="nav-link active"
+						href="Empleado?opcion=buscar">Mant. Empleado</a></li>
+                     <%} %>
+					<li class="nav-item"><a class="nav-link"
+						href="cliente?opcion=buscar">Mant. cliente</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="departamento?opcion=buscarDepartamento">Mant. Departamento</a></li>
 					<li class="nav-item"><a class="nav-link active"
-						href="inicoEmpleado.jsp">Inicio</a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="listadoCliente.jsp">Mant. cliente</a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="ListadoDepartamento.jsp">Mant. Departamento</a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="listaReservas.jsp">Mant. de Reservas</a></li>
+						href="ReservaServlet?opcion=buscarReservas">Mant. de Reservas</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">Reportes</a>
 						<!-- Submenú -->
 						<ul class="submenu">
 							<li><a class="submenu-link" href="cliente?opcion=listarReporteCliente">Clientes que mas reservan</a></li>
-							<li><a class="submenu-link" href="#">Reporte 2</a></li>
+							<li><a class="submenu-link" href="departamento?opcion=listarReporteDepartamento">Departamentos mas reservados</a></li>
 						</ul></li>
                         
 					<li class="nav-item"><a class="nav-link" href="login.jsp">Salir</a>
@@ -82,12 +100,11 @@
 			</div>
 		</div>
 	</nav>
-  	<h2>Lista de Reservas</h2>
 
 	<form action="ReservaServlet" method="post">
 		<!-- Campo oculto que pasa la opción 'buscar' al servlet -->
         <input type="hidden" name="opcion" value="buscarReservas">
-		<div class="d-flex justify-content-center">
+		<div class="d-flex justify-content-center mt-4">
 			<label for="IdBuscar">ID:</label>
 			<input type="number" id="IdBuscar" name="txtIdBuscar" class="w-50 form-control" placeholder="Ingrese el ID del departamento a buscar" min="1">
 			<input type='submit' name='buscar'/>
@@ -100,7 +117,7 @@
 List<Reserva> listaReservas = (List<Reserva>) request.getAttribute("listaReservas");
 Boolean esBusqueda = (Boolean) request.getAttribute("esBusqueda");
 if (esBusqueda == null) esBusqueda = false; // Fallback por seguridad
-%>
+%>  <div class="container">
 	<table class = "table table-bordered">
 		<thead>
 			<tr>
@@ -133,7 +150,8 @@ if (esBusqueda == null) esBusqueda = false; // Fallback por seguridad
 				<td><%=reserva.getEstadoReserva()%></td>
 				<td>
 		           <a href="ReservaServlet?opcion=editarEstado&id=<%=reserva.getIdSolicitud()%>" class="btn btn-primary">Modificar</a>
-				
+				   <a href="ReservaServlet?opcion=eliminar&id=<%=reserva.getIdSolicitud()%>" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este departamento?');">Eliminar</a>
+				   
 				</td>
 				
 			</tr>
@@ -146,14 +164,14 @@ if (esBusqueda == null) esBusqueda = false; // Fallback por seguridad
 				colspan para mostrar un mensaje que abarque toda la fila. 
 				El numero 6 porque son seis columnas las que hay en la tabla.
 			-->
-         	<td colspan="6" class="text-center text-danger">No existe el departamento con el ID ingresado</td>
+         	<td colspan="6" class="text-center text-danger">No existe la reserva con el ID ingresado</td>
  		</tr>
 <%
   	} // Llave de cierre de else if
 	else if (listaReservas != null && listaReservas.isEmpty()) {
 %>
 		<tr>
-            <td colspan="6" class="text-center text-warning">No se encuentran departamentos registrados</td>
+            <td colspan="6" class="text-center text-warning">No se encuentran reservas registradas</td>
         </tr>
 <%
     } // Llave de cierre de else if
@@ -164,5 +182,6 @@ if (esBusqueda == null) esBusqueda = false; // Fallback por seguridad
 %>
 		</tbody>
 	</table>
+	</div>
 </body>
 </html>

@@ -83,9 +83,9 @@ public class DAODepartamento {
 				ps = cnx.prepareStatement("SELECT * FROM Departamento");
 			} else {
 				// Buscar por ID
-				ps = cnx.prepareStatement("SELECT * FROM Departamento WHERE ID_Departamento LIKE ?");
+				ps = cnx.prepareStatement("SELECT * FROM Departamento WHERE ID_Departamento=?");
 				// Enviar el valor del parametro SQL
-				ps.setString(1, "%" + idBuscar + "%");
+				ps.setInt(1, idBuscar);
 			}
 			// Ejecuar la instruccion SQL y recoger los resultados
 			ResultSet rs = ps.executeQuery(); // SELECT
@@ -294,7 +294,7 @@ public class DAODepartamento {
 			// ResultSet OBTIENE EL RESULTADO DEL PROCEDIMIENTO
 			ResultSet rs = cstmt.executeQuery();
 			while (rs.next()) {
-				listaReporteDepartamentos.add(new ReporteDepartamento(rs.getInt("ID_Departamento"), rs.getString("Nombre"),
+				listaReporteDepartamentos.add(new ReporteDepartamento(rs.getInt("ID_Departamento"),rs.getString("Nombre"),
 						rs.getInt("Total_Reservas")));
 			}
 			con.close();

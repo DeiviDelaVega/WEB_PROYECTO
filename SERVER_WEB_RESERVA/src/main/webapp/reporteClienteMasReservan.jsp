@@ -86,10 +86,14 @@
 </head>
 <body>
 <!-- Barra de navegación -->
+<% HttpSession sesion= request.getSession(); 
+				String rolUsuario = (String)sesion.getAttribute("rol");	%>	
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="inicioEmpleado.jsp"><img alt=""
-				src="images/poloMonterrico.png" class="imagenlogo"></a>
+						<a class="navbar-brand" href="<%= "inicio" + rolUsuario.substring(0, 1).toUpperCase() + rolUsuario.substring(1) + ".jsp" %>">
+    <img alt="" src="images/poloMonterrico.png" class="imagenlogo">
+</a>
+
 
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -99,19 +103,31 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav ms-auto">
-					<li class="nav-item"><a class="nav-link active"
-						href="inicoEmpleado.jsp">Inicio</a></li>
+				 <%
+						if(rolUsuario.equals("empleado")){
+						%>
+					<li class="nav-item"><a class="nav-link "
+						href="inicioEmpleado.jsp">Inicio</a></li>
+						  <%} %>
+			      <%
+						if(rolUsuario.equals("admin")){
+						%>
+						<li class="nav-item"><a class="nav-link "
+						href="inicioAdmin.jsp">Inicio</a></li>
+						<li class="nav-item"><a class="nav-link"
+						href="Empleado?opcion=buscar">Mant. Empleado</a></li>
+                     <%} %>
 					<li class="nav-item"><a class="nav-link"
-						href="listadoCliente.jsp">Mant. cliente</a></li>
+						href="cliente?opcion=buscar">Mant. cliente</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="ListadoDepartamento.jsp">Mant. Departamento</a></li>
+						href="departamento?opcion=buscarDepartamento">Mant. Departamento</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="listaReservas.jsp">Mant. de Reservas</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Reportes</a>
+						href="ReservaServlet?opcion=buscarReservas">Mant. de Reservas</a></li>
+					<li class="nav-item"><a class="nav-link active" href="#">Reportes</a>
 						<!-- Submenú -->
 						<ul class="submenu">
 							<li><a class="submenu-link" href="cliente?opcion=listarReporteCliente">Clientes que mas reservan</a></li>
-							<li><a class="submenu-link" href="#">Reporte 2</a></li>
+							<li><a class="submenu-link" href="departamento?opcion=listarReporteDepartamento">Departamentos mas reservados</a></li>
 						</ul></li>
                         
 					<li class="nav-item"><a class="nav-link" href="login.jsp">Salir</a>
@@ -122,7 +138,13 @@
 	</nav>
 <div class="container">
 
-	<h1>Clientes con mas reservas</h1>
+<div class="container mt-5">
+		<div class="row justify-content-center">
+			<div class="col-md-8 text-center">
+				<h1 class="display-4">Clientes con mas reservas</h1>
+			</div>
+		</div>
+	</div>
 	<input type="hidden" name="opcion" value="listarReporteCliente">
 	<div class="row">
 		<%

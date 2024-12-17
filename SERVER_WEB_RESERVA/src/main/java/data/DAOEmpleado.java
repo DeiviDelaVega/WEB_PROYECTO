@@ -57,9 +57,9 @@ public class DAOEmpleado {
 				ps = cnx.prepareStatement("SELECT * FROM Empleado");
 			} else {
 				// Buscar por ID
-				ps = cnx.prepareStatement("SELECT * FROM Empleado WHERE ID_Empleado LIKE ?");
+				ps = cnx.prepareStatement("SELECT * FROM Empleado WHERE ID_Empleado=?");
 				// Enviar el valor del parametro SQL
-				ps.setString(1, "%" + idBuscar + "%");
+				ps.setInt(1, idBuscar);
 			}
 			// Ejecuar la instruccion SQL y recoger los resultados
 			ResultSet rs = ps.executeQuery(); // SELECT

@@ -21,26 +21,32 @@ public class DAOCliente {
 
 	public boolean registrarCliente(Cliente cliente) throws SQLException {
 
-		String sql = "INSERT INTO Cliente(Nombre,Apellido,Nro_Documento,Dirección,Numero_Telf,Correo)"
-				+ " VALUES ( ?, ?, ?,?,?,?)";
+		boolean informacionRegistrada =false;
+		try {
+			String sql = "INSERT INTO Cliente(Nombre,Apellido,Nro_Documento,Dirección,Numero_Telf,Correo)"
+					+ " VALUES ( ?, ?, ?,?,?,?)";
 
-		PreparedStatement ps = con.prepareStatement(sql);
+			PreparedStatement ps = con.prepareStatement(sql);
 
-		ps.setString(1, cliente.getNombre());
-		ps.setString(2, cliente.getApellido());
-		ps.setInt(3, cliente.getNro_Documento());
-		ps.setString(4, cliente.getDireccion());
-		ps.setString(5, cliente.getTelefono());
-		ps.setString(6, cliente.getCorreo());
+			ps.setString(1, cliente.getNombre());
+			ps.setString(2, cliente.getApellido());
+			ps.setInt(3, cliente.getNro_Documento());
+			ps.setString(4, cliente.getDireccion());
+			ps.setString(5, cliente.getTelefono());
+			ps.setString(6, cliente.getCorreo());
 
-		if (ps.executeUpdate() > 0) {
+			if (ps.executeUpdate() > 0) {
 
-			DAOUsuario usuariodao = new DAOUsuario();
-			Usuario usuario = new Usuario(cliente.getCorreo(), cliente.getClave(), "cliente");
-			boolean usuarioRegistrado = usuariodao.registrarUsuario(usuario);
-			return usuarioRegistrado;
+				DAOUsuario usuariodao = new DAOUsuario();
+				Usuario usuario = new Usuario(cliente.getCorreo(), cliente.getClave(), "cliente");
+				informacionRegistrada = usuariodao.registrarUsuario(usuario);
+			}
+
+		} catch (Exception e) {
+			informacionRegistrada = false;
 		}
-		return false;
+			
+			return informacionRegistrada;
 
 	}
 
@@ -57,9 +63,9 @@ public class DAOCliente {
 				ps = cnx.prepareStatement("SELECT * FROM Cliente");
 			} else {
 				// Buscar por ID
-				ps = cnx.prepareStatement("SELECT * FROM Cliente WHERE ID_Cliente LIKE ?");
+				ps = cnx.prepareStatement("SELECT * FROM Cliente WHERE ID_Cliente =?");
 				// Enviar el valor del parametro SQL
-				ps.setString(1, "%" + idBuscar + "%");
+				ps.setInt(1,idBuscar );
 			}
 			// Ejecuar la instruccion SQL y recoger los resultados
 			ResultSet rs = ps.executeQuery(); // SELECT
