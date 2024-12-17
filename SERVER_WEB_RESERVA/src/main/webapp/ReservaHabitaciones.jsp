@@ -45,26 +45,45 @@
         .search-bar {
             margin-bottom: 20px;
         }
+        
+        .imagenlogo {
+
+width: 100px;
+height: auto;
+}
     </style>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="inicioCliente.jsp"><img alt="" src="images/poloMonterrico.png" class="imagenlogo"></a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="home.jsp">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="ReservaHabitaciones.jsp" onclick="document.getElementById('listadoForm').submit(); return false;">Reserva Habitaciones</a>
+                    </li>
+                    <li class="nav-item">
+                          <a class="nav-link" href="ReservaServlet?opcion=buscarReservasCliente">Tus reservas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.jsp">Salir</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <div class="container">
         <h2 class="my-4">Lista de Departamentos</h2>
         <hr>
 
-        <!-- Botón para agregar un nuevo departamento -->
-        <input type="button" value="Agregar departamento" class="btn btn-primary" onclick="window.location.href='RegistrarDepartamento.jsp'">
-        <hr>
 
-        <!-- Formulario de búsqueda -->
-        <form action="ReservaDepartamento" method="post" class="search-bar">
-            <div class="d-flex justify-content-center">
-                <label for="IdBuscar">ID:</label>
-                <input type="number" id="IdBuscar" name="txtIdBuscar" class="w-50 form-control" placeholder="Ingrese el ID del departamento a buscar" min="1">
-                <input type="submit" value="Buscar" class="btn btn-secondary">
-            </div>
-        </form>
-        <hr>
 
         <div class="row">
             <% 

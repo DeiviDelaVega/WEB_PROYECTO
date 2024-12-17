@@ -53,6 +53,7 @@ public class ServletLogin extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String correo = request.getParameter("correo");
@@ -64,7 +65,6 @@ public class ServletLogin extends HttpServlet {
 		try {
 			Usuario usuario = dao.validarUsuario(correo, clave);
 			
-			System.out.print("usuario"+usuario.getRol());
 			if (usuario != null) {
 				//instancia HttpSession
 				HttpSession sn = request.getSession();
@@ -86,9 +86,10 @@ public class ServletLogin extends HttpServlet {
 					break;
 				
 			    } 
-			 } else {
-				
-				response.sendRedirect("login.jsp");
+			 } else if(usuario == null) {
+				 request.setAttribute("error", "Credenciales incorrectas");
+				    // Reenviar el control al JSP de login
+				    request.getRequestDispatcher("login.jsp").forward(request, response);
 			
 			
 			 }
